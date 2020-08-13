@@ -1,0 +1,29 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.Input {
+  font-family: inherit;
+  font-size: inherit;
+  margin: 10px 0;
+  height: 1.5rem;
+  width: 27rem;
+}
+
+@media (max-width: 600px) {
+  .Input {
+    width: 100%;
+  }
+}
+
+/* textarea.Input {
+  height: 2em;
+  width: 31em;
+} */
