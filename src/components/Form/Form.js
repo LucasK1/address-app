@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../UI/Input/Input';
+import Button from '../UI/Button/Button';
+import * as classes from './Form.module.css';
 
 const Form = (props) => {
   const addressForm = useState({
@@ -71,6 +73,7 @@ const Form = (props) => {
           />
         );
       })}
+      <Button small>Submit</Button>
     </form>
   );
   return <div>{form}</div>;

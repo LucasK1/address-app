@@ -1,0 +1,29 @@
+.Button {
+  color: #24252E;
+}
+
+.Big {
+  font-size: 1.25rem;
+  background-color: #61dafb;
+  width: 12rem;
+  height: 5rem;
+  transition: 0.1s linear;
+}
+
+.Big:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+.Small {
+  font-size: 0.9rem;
+  background-color: #61dafb;
+  width: 5rem;
+  height: 2rem;
+  transition: 0.1s linear;
+}
+
+.Small:hover {
+  cursor: pointer;
+  background-color: white;
+}
