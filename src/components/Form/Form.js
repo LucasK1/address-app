@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
-import * as classes from './Form.module.css';
+import './Form.module.css';
 
 const Form = (props) => {
   const addressForm = useState({
@@ -48,6 +48,9 @@ const Form = (props) => {
     additionalInfo: {
       elementType: 'textarea',
       config: {
+        style: {
+          resize: 'vertical',
+        },
         placeholder: 'Additional information',
       },
       value: '',
@@ -61,6 +64,10 @@ const Form = (props) => {
     });
   }
 
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+  }
+  
   const form = (
     <form>
       {addressArray.map((el) => {
@@ -73,7 +80,7 @@ const Form = (props) => {
           />
         );
       })}
-      <Button small>Submit</Button>
+      <Button small submitted={submitFormHandler}>Submit</Button>
     </form>
   );
   return <div>{form}</div>;

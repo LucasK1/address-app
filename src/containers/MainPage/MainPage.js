@@ -9,7 +9,8 @@ import Button from '../../components/UI/Button/Button';
 const MainPage = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const addContactHandler = () => {
+  const addContactHandler = (e) => {
+    e.preventDefault();
     setShowModal(!showModal);
   };
 
