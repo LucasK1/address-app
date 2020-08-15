@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import './Form.module.css';
 
 const Form = (props) => {
-  const addressForm = useState({
+  const [addressForm, setAddressForm] = useState({
     name: {
       elementType: 'input',
       config: {
@@ -55,7 +55,22 @@ const Form = (props) => {
       },
       value: '',
     },
-  })[0];
+  });
+
+  const onChangeHandler = (event, formElementId) => {
+    const updatedFormElement = {...addressForm[formElementId], value: event.target.value};
+    console.log(addressForm);
+
+    const updatedAddressForm = {...addressForm, [formElementId]: updatedFormElement};
+
+    setAddressForm(updatedAddressForm);
+  };
+
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+
+  };
+
   let addressArray = [];
   for (const key in addressForm) {
     addressArray.push({
@@ -64,23 +79,22 @@ const Form = (props) => {
     });
   }
 
-  const submitFormHandler = (e) => {
-    e.preventDefault();
-  }
-  
   const form = (
     <form>
-      {addressArray.map((el) => {
+      {addressArray.map((formElement) => {
         return (
           <Input
-            key={el.id}
-            elementType={el.attributes.elementType}
-            elementConfig={el.attributes.config}
-            value={el.attributes.config.value}
+            key={formElement.id}
+            elementType={formElement.attributes.elementType}
+            elementConfig={formElement.attributes.config}
+            value={formElement.attributes.value}
+            changed={(event) => onChangeHandler(event, formElement.id)}
           />
         );
       })}
-      <Button small submitted={submitFormHandler}>Submit</Button>
+      <Button small submitted={submitFormHandler}>
+        Submit
+      </Button>
     </form>
   );
   return <div>{form}</div>;

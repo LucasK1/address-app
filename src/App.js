@@ -1,15 +1,19 @@
 import React from 'react';
-
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import './App.css';
 import MainPage from './containers/MainPage/MainPage';
-import Form from './components/Form/Form';
-import Modal from './components/UI/Modal/Modal';
+import NavBar from './components/Navigation/NavBar';
 
 function App() {
   return (
-    <div className="App">
-      <MainPage />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <NavBar />
+        <Route path="/" exact component={MainPage} />
+        <Route path="/addresses" exact render={() => <h1>Addresses</h1>} />
+      </div>
+    </BrowserRouter>
   );
 }
 

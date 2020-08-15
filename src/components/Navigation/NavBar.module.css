@@ -1,4 +1,7 @@
 .NavBar {
-background-color: #30323D;
-
+background-color: #30323d;
+width: 100%;
+height: 10vh;
+display: flex;
+flex-flow: row-reverse;
 } 
