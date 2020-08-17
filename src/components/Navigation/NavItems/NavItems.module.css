@@ -1,5 +1,5 @@
 .NavItems {
   display: flex;
   justify-items: space-around;
-  align-content: center;
+  align-content: space-around;
 }

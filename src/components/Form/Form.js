@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import './Form.module.css';
@@ -58,17 +60,31 @@ const Form = (props) => {
   });
 
   const onChangeHandler = (event, formElementId) => {
-    const updatedFormElement = {...addressForm[formElementId], value: event.target.value};
+    const updatedFormElement = {
+      ...addressForm[formElementId],
+      value: event.target.value,
+    };
     console.log(addressForm);
 
-    const updatedAddressForm = {...addressForm, [formElementId]: updatedFormElement};
+    const updatedAddressForm = {
+      ...addressForm,
+      [formElementId]: updatedFormElement,
+    };
 
     setAddressForm(updatedAddressForm);
   };
 
-  const submitFormHandler = (e) => {
-    e.preventDefault();
-
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    const formToSend = {};
+    for (let formElementId in addressForm) {
+      formToSend[formElementId] = addressForm[formElementId].value;
+    }
+    console.log(formToSend);
+    axios
+      .post('https://address-app-8dda8.firebaseio.com/addresses.json', formToSend)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   let addressArray = [];
@@ -80,7 +96,7 @@ const Form = (props) => {
   }
 
   const form = (
-    <form>
+    <form onSubmit={submitFormHandler}>
       {addressArray.map((formElement) => {
         return (
           <Input
@@ -92,9 +108,7 @@ const Form = (props) => {
           />
         );
       })}
-      <Button small submitted={submitFormHandler}>
-        Submit
-      </Button>
+      <Button small>Submit</Button>
     </form>
   );
   return <div>{form}</div>;
