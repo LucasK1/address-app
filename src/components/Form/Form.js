@@ -12,6 +12,7 @@ const Form = (props) => {
       config: {
         type: 'text',
         placeholder: 'Name',
+        required: true,
       },
       value: '',
     },
@@ -20,6 +21,7 @@ const Form = (props) => {
       config: {
         type: 'email',
         placeholder: 'Email',
+        required: true,
       },
       value: '',
     },
@@ -28,6 +30,7 @@ const Form = (props) => {
       config: {
         type: 'number',
         placeholder: 'Tel. number',
+        required: true,
       },
       value: '',
     },
@@ -36,6 +39,7 @@ const Form = (props) => {
       config: {
         type: 'text',
         placeholder: 'Street name and number',
+        required: true,
       },
       value: '',
     },
@@ -44,6 +48,7 @@ const Form = (props) => {
       config: {
         type: 'text',
         placeholder: 'City and postal code',
+        required: true,
       },
       value: '',
     },
@@ -54,6 +59,7 @@ const Form = (props) => {
           resize: 'vertical',
         },
         placeholder: 'Additional information',
+        required: true,
       },
       value: '',
     },

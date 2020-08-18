@@ -1,0 +1,16 @@
+.AddressCard {
+  width: 18rem;
+  height: 23rem;
+  margin: 20px;
+  border-radius: 15px;
+  background-color: #24262D;
+  color: #ccc;
+  font-size: 1.1rem;
+  display: flex;
+  padding-left: 2rem;
+  padding-top: 1rem;
+  box-sizing: border-box;
+}
+.AddressCard p {
+  margin: 0.5rem;
+}
