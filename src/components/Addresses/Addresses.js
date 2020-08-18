@@ -15,14 +15,12 @@ const Addresses = React.memo((props) => {
     axios
       .get('https://address-app-8dda8.firebaseio.com/addresses.json')
       .then((res) => {
-        console.log(res.data);
         let fetchedAddresses = [];
         for (let singleAddress in res.data) {
           fetchedAddresses.push({
             id: singleAddress,
             address: res.data[singleAddress],
           });
-          console.log(fetchedAddresses);
         }
         setAddressState([...addressState, ...fetchedAddresses]);
         setLoading(false);

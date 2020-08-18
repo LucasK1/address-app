@@ -10,7 +10,14 @@
   padding-left: 2rem;
   padding-top: 1rem;
   box-sizing: border-box;
+  transition: 200ms linear;
+}
+.AddressCard:hover {
+  transform: scale(1.1);
 }
 .AddressCard p {
   margin: 0.5rem;
+}
+.AddressCard a {
+  text-decoration: underline;
 }

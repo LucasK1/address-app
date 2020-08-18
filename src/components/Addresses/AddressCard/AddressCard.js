@@ -21,7 +21,7 @@ const AddressCard = (props) => {
         </li>
         <li>
           <span>Email:</span>
-          <p>{email}</p>
+          <p><a href={`mailto:${email}`}>{email}</a></p>
         </li>
         <li>
           <span>Phone number:</span>

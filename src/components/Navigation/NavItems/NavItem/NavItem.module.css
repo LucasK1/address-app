@@ -5,10 +5,15 @@
   font-size: 1.5rem;
   color: white;
 }
+.NavItem_Link__active {
+  border-bottom: 1px solid white;
+}
 .NavItem:hover {
   cursor: pointer;
 }
-
+.NavItem_Link:active {
+  color: #bbb;
+}
 li {
   list-style: none;
 }
