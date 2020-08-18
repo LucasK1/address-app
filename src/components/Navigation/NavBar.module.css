@@ -5,6 +5,11 @@ height: 10%;
 position: fixed;
 top: 0;
 display: flex;
-flex-flow: row-reverse;
+justify-content: space-between;
 align-items: center;
-} 
+}
+.NavBar img {
+  width: 5rem;
+  height: 5rem;
+  padding-left: 1rem;
+}
