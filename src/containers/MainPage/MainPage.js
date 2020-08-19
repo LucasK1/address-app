@@ -9,19 +9,20 @@ import Button from '../../components/UI/Button/Button';
 const MainPage = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const addContactHandler = (e) => {
-    e.preventDefault();
+  const showModalHandler = () => {
     setShowModal(!showModal);
   };
 
   return (
     <div className={classes.MainPage}>
-      <Backdrop show={showModal} clicked={addContactHandler} />
+      <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal} className={classes.MainPage_Modal}>
-        <Form />
+        <Form submitted={showModalHandler} />
       </Modal>
       <img src={require('../../assets/logo.png')} alt="Address Book logo" />
-      <Button submitted={addContactHandler} big>Add a contact</Button>
+      <Button submitted={showModalHandler} big>
+        Add a contact
+      </Button>
     </div>
   );
 };

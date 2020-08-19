@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import * as yup from 'yup';
 
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
+import Spinner from '../UI/Spinner/Spinner';
+
 import './Form.module.css';
 
 const Form = (props) => {
+  let schema = yup.object().shape({
+    name: yup.string().required(),
+  });
+
   const [addressForm, setAddressForm] = useState({
     name: {
       elementType: 'input',
@@ -64,6 +71,7 @@ const Form = (props) => {
       value: '',
     },
   });
+  const [loading, setLoading] = useState(false);
 
   const onChangeHandler = (event, formElementId) => {
     const updatedFormElement = {
@@ -82,14 +90,28 @@ const Form = (props) => {
 
   const submitFormHandler = (event) => {
     event.preventDefault();
+    setLoading(true);
     const formToSend = {};
     for (let formElementId in addressForm) {
       formToSend[formElementId] = addressForm[formElementId].value;
     }
-    console.log(formToSend);
     axios
-      .post('https://address-app-8dda8.firebaseio.com/addresses.json', formToSend)
-      .then((res) => console.log(res))
+      .post(
+        'https://address-app-8dda8.firebaseio.com/addresses.json',
+        formToSend
+      )
+      .then(() => {
+        setLoading(false);
+        const resetForm = {};
+        for (let formElementId in addressForm) {
+          resetForm[formElementId] = {
+            ...addressForm[formElementId],
+            value: '',
+          };
+        }
+        setAddressForm({ ...addressForm, ...resetForm });
+        props.submitted();
+      })
       .catch((err) => console.log(err));
   };
 
@@ -100,23 +122,25 @@ const Form = (props) => {
       attributes: addressForm[key],
     });
   }
-
-  const form = (
-    <form onSubmit={submitFormHandler}>
-      {addressArray.map((formElement) => {
-        return (
-          <Input
-            key={formElement.id}
-            elementType={formElement.attributes.elementType}
-            elementConfig={formElement.attributes.config}
-            value={formElement.attributes.value}
-            changed={(event) => onChangeHandler(event, formElement.id)}
-          />
-        );
-      })}
-      <Button small>Submit</Button>
-    </form>
-  );
+  let form = <Spinner />;
+  if (loading !== true) {
+    form = (
+      <form onSubmit={submitFormHandler}>
+        {addressArray.map((formElement) => {
+          return (
+            <Input
+              key={formElement.id}
+              elementType={formElement.attributes.elementType}
+              elementConfig={formElement.attributes.config}
+              value={formElement.attributes.value}
+              changed={(event) => onChangeHandler(event, formElement.id)}
+            />
+          );
+        })}
+        <Button small>Submit</Button>
+      </form>
+    );
+  }
   return <div>{form}</div>;
 };
 
