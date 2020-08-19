@@ -9,25 +9,25 @@ import Spinner from '../UI/Spinner/Spinner';
 import './Form.module.css';
 
 const Form = (props) => {
-  let schema = yup.object().shape({
-    name: yup.string().required(),
-  });
+
+    const {name, email, phone, streetAddress, cityAddress, additionalInfo} = props.address;
+
 
   const [addressForm, setAddressForm] = useState({
     name: {
       elementType: 'input',
       config: {
         type: 'text',
-        placeholder: 'Name',
+        placeholder: 'Name*',
         required: true,
       },
-      value: '',
+      value: props.address.name,
     },
     email: {
       elementType: 'input',
       config: {
         type: 'email',
-        placeholder: 'Email',
+        placeholder: 'Email*',
         required: true,
       },
       value: '',
@@ -36,7 +36,7 @@ const Form = (props) => {
       elementType: 'input',
       config: {
         type: 'number',
-        placeholder: 'Tel. number',
+        placeholder: 'Tel. number*',
         required: true,
       },
       value: '',
@@ -45,7 +45,7 @@ const Form = (props) => {
       elementType: 'input',
       config: {
         type: 'text',
-        placeholder: 'Street name and number',
+        placeholder: 'Street name and number*',
         required: true,
       },
       value: '',
@@ -54,7 +54,7 @@ const Form = (props) => {
       elementType: 'input',
       config: {
         type: 'text',
-        placeholder: 'City and postal code',
+        placeholder: 'City and postal code*',
         required: true,
       },
       value: '',

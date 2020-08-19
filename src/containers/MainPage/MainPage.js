@@ -12,12 +12,20 @@ const MainPage = () => {
   const showModalHandler = () => {
     setShowModal(!showModal);
   };
+  const initialAddress = {
+    additionalInfo: '',
+    streetAddress: '',
+    cityAddress: '',
+    name: '',
+    email: '',
+    phone: '',
+  };
 
   return (
     <div className={classes.MainPage}>
       <Backdrop show={showModal} clicked={showModalHandler} />
-      <Modal show={showModal} className={classes.MainPage_Modal}>
-        <Form submitted={showModalHandler} />
+      <Modal show={showModal}>
+        <Form submitted={showModalHandler} address={initialAddress} />
       </Modal>
       <img src={require('../../assets/logo.png')} alt="Address Book logo" />
       <Button submitted={showModalHandler} big>

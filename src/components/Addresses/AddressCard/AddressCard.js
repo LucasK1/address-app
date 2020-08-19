@@ -13,7 +13,7 @@ const AddressCard = (props) => {
   } = props.address;
 
   return (
-    <div className={classes.AddressCard}>
+    <div className={classes.AddressCard} onClick={props.clicked}>
       <ul>
         <li>
           <span>Name:</span>
