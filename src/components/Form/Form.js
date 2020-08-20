@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -7,11 +7,12 @@ import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
 
 import './Form.module.css';
+import { Context } from '../../store';
 
 const Form = (props) => {
 
-    const {name, email, phone, streetAddress, cityAddress, additionalInfo} = props.address;
 
+  const { store, dispatch } = useContext(Context);
 
   const [addressForm, setAddressForm] = useState({
     name: {
@@ -21,7 +22,7 @@ const Form = (props) => {
         placeholder: 'Name*',
         required: true,
       },
-      value: props.address.name,
+      value: '',
     },
     email: {
       elementType: 'input',
@@ -72,6 +73,39 @@ const Form = (props) => {
     },
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let updatedAddressForm = {};
+    for (let key in addressForm) {
+      updatedAddressForm = {
+        ...updatedAddressForm,
+        [key]: {
+          ...[key],
+          config: {
+            ...[key].config,
+          },
+          value: props.address.[key],
+        },
+      };
+    }
+    setAddressForm({ ...addressForm, ...updatedAddressForm });
+    return () => {
+      let clearedAddressForm = {}
+      for (let key in addressForm) {
+        clearedAddressForm = {
+          ...clearedAddressForm,
+          [key]: {
+            ...[key],
+            config: {
+              ...[key].config,
+            },
+            value: '',
+          },
+        };
+      }
+      setAddressForm({...addressForm, ...clearedAddressForm})
+    }
+  }, [props]);
 
   const onChangeHandler = (event, formElementId) => {
     const updatedFormElement = {

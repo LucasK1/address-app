@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import AddressCard from './AddressCard/AddressCard';
@@ -6,22 +6,16 @@ import Spinner from '../UI/Spinner/Spinner';
 import Backdrop from '../UI/Backdrop/Backdrop';
 import Modal from '../UI/Modal/Modal';
 import Form from '../Form/Form';
-import Aux from '../../hoc/Auxiliary';
 
 import * as classes from './Addresses.module.css';
+import { Context } from '../../store';
 
 const Addresses = (props) => {
   const [addressState, setAddressState] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [addressEdit, setAddressEdit] = useState({
-    additionalInfo: '',
-    cityAddress: '',
-    name: '',
-    email: '',
-    phone: '',
-    streetAddress: '',
-  });
+  // const [addressEdit, setAddressEdit] = useState({});
+  const { store, dispatch } = useContext(Context);
 
   const showModalHandler = () => {
     setShowModal(!showModal);
@@ -51,12 +45,9 @@ const Addresses = (props) => {
     const clickedAddress = addressState.filter((el) => el.id === cardId);
     const extractedAddress = clickedAddress[0].address;
     console.log(extractedAddress, ' CLICKED');
-    setAddressEdit({
-      ...addressEdit,
-      ...extractedAddress,
-    });
+    dispatch({ type: 'edit', payload: { ...extractedAddress } });
     setTimeout(() => {
-      console.log(addressEdit, ' ADDRESS EDIT');
+      console.log(store, ' ADDRESS EDIT');
     }, 2000);
   };
 
@@ -77,7 +68,7 @@ const Addresses = (props) => {
     <div className={classes.Addresses}>
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
-        <Form address={addressEdit} submitted={showModalHandler} />
+        <Form address={store} submitted={showModalHandler} />
       </Modal>
       {addressCards}
     </div>
