@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import * as yup from 'yup';
 
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
 
 import './Form.module.css';
-import { Context } from '../../store';
 
 const Form = (props) => {
-  const { store, dispatch } = useContext(Context);
 
   const [addressForm, setAddressForm] = useState({
     name: {
@@ -85,6 +82,7 @@ const Form = (props) => {
     }
     console.log(updatedAddressForm, 'FORM');
     setAddressForm({ ...addressForm, ...updatedAddressForm });
+
     return () => {
       let clearedAddressForm = {};
       for (let key in addressForm) {
