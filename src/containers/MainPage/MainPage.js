@@ -19,7 +19,7 @@ const MainPage = () => {
     <div className={classes.MainPage}>
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
-        <Form submitted={showModalHandler} address={{}} />
+        <Form  submitted={showModalHandler} address />
       </Modal>
       <img src={require('../../assets/logo.png')} alt="Address Book logo" />
       <Button submitted={showModalHandler} big>

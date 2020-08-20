@@ -10,8 +10,6 @@ import './Form.module.css';
 import { Context } from '../../store';
 
 const Form = (props) => {
-
-
   const { store, dispatch } = useContext(Context);
 
   const [addressForm, setAddressForm] = useState({
@@ -80,31 +78,26 @@ const Form = (props) => {
       updatedAddressForm = {
         ...updatedAddressForm,
         [key]: {
-          ...[key],
-          config: {
-            ...[key].config,
-          },
-          value: props.address.[key],
+          ...addressForm[key],
+          value: props.address[key],
         },
       };
     }
+    console.log(updatedAddressForm, 'FORM');
     setAddressForm({ ...addressForm, ...updatedAddressForm });
     return () => {
-      let clearedAddressForm = {}
+      let clearedAddressForm = {};
       for (let key in addressForm) {
         clearedAddressForm = {
           ...clearedAddressForm,
           [key]: {
-            ...[key],
-            config: {
-              ...[key].config,
-            },
+            ...addressForm[key],
             value: '',
           },
         };
       }
-      setAddressForm({...addressForm, ...clearedAddressForm})
-    }
+      setAddressForm({ ...addressForm, ...clearedAddressForm });
+    };
   }, [props]);
 
   const onChangeHandler = (event, formElementId) => {
