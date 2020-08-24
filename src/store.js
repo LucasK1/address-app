@@ -1,12 +1,15 @@
 import React from 'react';
 
 export const initialAddress = {
-  additionalInfo: '',
-  streetAddress: '',
-  cityAddress: '',
-  name: '',
-  email: '',
-  phone: '',
+  id: '',
+  address: {
+    additionalInfo: '',
+    streetAddress: '',
+    cityAddress: '',
+    name: '',
+    email: '',
+    phone: '',
+  },
 };
 
 export const reducer = (state, action) => {

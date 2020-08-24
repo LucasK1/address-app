@@ -2,18 +2,12 @@ import React from 'react';
 
 import * as classes from './AddressCard.module.css';
 
-const AddressCard = (props) => {
-  const {
-    name,
-    email,
-    phone,
-    streetAddress,
-    cityAddress,
-    additionalInfo,
-  } = props.address;
-
+const AddressCard = ({
+  address: { name, email, phone, streetAddress, cityAddress, additionalInfo },
+  clicked,
+}) => {
   return (
-    <div className={classes.AddressCard} onClick={props.clicked}>
+    <div className={classes.AddressCard} onClick={clicked}>
       <ul>
         <li>
           <span>Name:</span>
@@ -21,7 +15,9 @@ const AddressCard = (props) => {
         </li>
         <li>
           <span>Email:</span>
-          <p><a href={`mailto:${email}`}>{email}</a></p>
+          <p>
+            <a href={`mailto:${email}`}>{email}</a>
+          </p>
         </li>
         <li>
           <span>Phone number:</span>
@@ -29,8 +25,10 @@ const AddressCard = (props) => {
         </li>
         <li>
           <span>Address:</span>
-          <p>{streetAddress}</p>
-          <p>{cityAddress}</p>
+          <address>
+            <p>{streetAddress}</p>
+            <p>{cityAddress}</p>
+          </address>
         </li>
         <li>
           <span>Info:</span>

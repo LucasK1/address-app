@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
+import { Context } from '../../store';
 
 import './Form.module.css';
 
 const Form = (props) => {
-
   const [addressForm, setAddressForm] = useState({
     name: {
       elementType: 'input',
@@ -69,6 +69,8 @@ const Form = (props) => {
   });
   const [loading, setLoading] = useState(false);
 
+  const { store, dispatch } = useContext(Context);
+
   useEffect(() => {
     let updatedAddressForm = {};
     for (let key in addressForm) {
@@ -76,7 +78,7 @@ const Form = (props) => {
         ...updatedAddressForm,
         [key]: {
           ...addressForm[key],
-          value: props.address[key],
+          value: props.address.address[key],
         },
       };
     }
@@ -120,24 +122,55 @@ const Form = (props) => {
     for (let formElementId in addressForm) {
       formToSend[formElementId] = addressForm[formElementId].value;
     }
-    axios
-      .post(
-        'https://address-app-8dda8.firebaseio.com/addresses.json',
-        formToSend
-      )
-      .then(() => {
-        setLoading(false);
-        const resetForm = {};
-        for (let formElementId in addressForm) {
-          resetForm[formElementId] = {
-            ...addressForm[formElementId],
-            value: '',
-          };
-        }
-        setAddressForm({ ...addressForm, ...resetForm });
-        props.submitted();
-      })
-      .catch((err) => console.log(err));
+    JSON.stringify(formToSend);
+    if (props.pathname === '/') {
+      axios
+        .post(
+          'https://address-app-8dda8.firebaseio.com/addresses.json',
+          formToSend
+        )
+        .then(() => {
+          setLoading(false);
+          const resetForm = {};
+          for (let formElementId in addressForm) {
+            resetForm[formElementId] = {
+              ...addressForm[formElementId],
+              value: '',
+            };
+          }
+          setAddressForm({ ...addressForm, ...resetForm });
+          props.submitted();
+        })
+        .catch((err) => console.log(err));
+    } else if (props.pathname === '/addresses') {
+      // axios
+      //   .get(
+      //     `https://address-app-8dda8.firebaseio.com/addresses.json?orderBy="$key"`
+      //   )
+      //   .then((res) => console.log(res));
+
+      axios
+        .patch(
+          `https://address-app-8dda8.firebaseio.com/addresses/${store.id}.json`,
+          formToSend
+        )
+        .then(() => {
+          setLoading(false);
+          const resetForm = {};
+          for (let formElementId in addressForm) {
+            resetForm[formElementId] = {
+              ...addressForm[formElementId],
+              value: '',
+            };
+          }
+          setAddressForm({ ...addressForm, ...resetForm });
+          props.submitted();
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    }
   };
 
   let addressArray = [];

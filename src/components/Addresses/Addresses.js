@@ -43,9 +43,12 @@ const Addresses = (props) => {
     setShowModal(true);
     console.log(addressState);
     const clickedAddress = addressState.filter((el) => el.id === cardId);
-    const extractedAddress = clickedAddress[0].address;
+    const extractedAddress = clickedAddress[0];
     console.log(extractedAddress, ' CLICKED');
-    dispatch({ type: 'edit', payload: { ...extractedAddress } });
+    dispatch({
+      type: 'edit',
+      payload: { ...extractedAddress },
+    });
     setTimeout(() => {
       console.log(store, ' ADDRESS EDIT');
     }, 2000);
@@ -68,7 +71,11 @@ const Addresses = (props) => {
     <div className={classes.Addresses}>
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
-        <Form address={store} submitted={showModalHandler} />
+        <Form
+          address={store}
+          submitted={showModalHandler}
+          pathname={props.history.location.pathname}
+        />
       </Modal>
       {addressCards}
     </div>
