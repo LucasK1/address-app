@@ -8,13 +8,15 @@ import Modal from '../UI/Modal/Modal';
 import Form from '../Form/Form';
 
 import * as classes from './Addresses.module.css';
-import { Context } from '../../store';
+import { singleAddressContext } from '../../store';
+import { AddressesContext } from '../../context/addresses-context';
 
 const Addresses = (props) => {
-  const [addressState, setAddressState] = useState([]);
+  // const [addressState, setAddressState] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { store, dispatch } = useContext(Context);
+  const { store, dispatch } = useContext(singleAddressContext);
+  const addressesContext = useContext(AddressesContext);
 
   const showModalHandler = () => {
     setShowModal(!showModal);
@@ -32,7 +34,11 @@ const Addresses = (props) => {
             address: res.data[singleAddress],
           });
         }
-        setAddressState([...addressState, ...fetchedAddresses]);
+        // setAddressState([...addressState, ...fetchedAddresses]);
+        addressesContext.setFetchedAddresses([
+          ...addressesContext.fetchedAddresses,
+          ...fetchedAddresses,
+        ]);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -41,7 +47,9 @@ const Addresses = (props) => {
 
   const editHandler = (cardId) => {
     setShowModal(true);
-    const clickedAddress = addressState.filter((el) => el.id === cardId);
+    const clickedAddress = addressesContext.fetchedAddresses.filter(
+      (el) => el.id === cardId
+    );
     const extractedAddress = clickedAddress[0];
     dispatch({
       type: 'edit',
@@ -71,7 +79,7 @@ const Addresses = (props) => {
       {loading ? (
         <Spinner />
       ) : (
-        addressState.map((item) => (
+        addressesContext.fetchedAddresses.map((item) => (
           <AddressCard
             key={item.id}
             address={item.address}

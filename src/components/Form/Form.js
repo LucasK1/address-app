@@ -4,9 +4,10 @@ import axios from 'axios';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
-import { Context } from '../../store';
+import { singleAddressContext } from '../../store';
 
 import './Form.module.css';
+import { AddressesContext } from '../../context/addresses-context';
 
 const Form = (props) => {
   const [addressForm, setAddressForm] = useState({
@@ -69,7 +70,8 @@ const Form = (props) => {
   });
   const [loading, setLoading] = useState(false);
 
-  const { store } = useContext(Context);
+  const { store } = useContext(singleAddressContext);
+  const addressesContext = useContext(AddressesContext);
 
   useEffect(() => {
     let updatedAddressForm = {};
@@ -150,6 +152,20 @@ const Form = (props) => {
           formToSend
         )
         .then(() => {
+          axios
+            .get('https://address-app-8dda8.firebaseio.com/addresses.json')
+            .then((res) => {
+              let fetchedAddresses = [];
+              for (let singleAddress in res.data) {
+                fetchedAddresses.push({
+                  id: singleAddress,
+                  address: res.data[singleAddress],
+                });
+              }
+              addressesContext.setFetchedAddresses([...fetchedAddresses]);
+              setLoading(false);
+            })
+            .catch((err) => console.log(err));
           setLoading(false);
           const resetForm = {};
           for (let formElementId in addressForm) {
@@ -165,6 +181,22 @@ const Form = (props) => {
           setLoading(false);
           console.log(err);
         });
+
+      // const addressToEdit = addressesContext.fetchedAddresses.find(
+      //   (item) => store.id === item.id
+      // );
+      // const editedAddress = {
+      //   ...addressToEdit,
+      //   address: {
+      //     ...addressToEdit.address,
+      //     ...formToSend,
+      //   },
+      // };
+      // addressesContext.setFetchedAddresses([
+      //   ...addressesContext.fetchedAddresses,
+      //   editedAddress,
+      // ]);
+      // console.log(editedAddress);
     }
   };
 

@@ -21,4 +21,4 @@ export const reducer = (state, action) => {
   }
 };
 
-export const Context = React.createContext();
+export const singleAddressContext = React.createContext();
