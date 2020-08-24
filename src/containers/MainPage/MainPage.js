@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import * as classes from './MainPage.module.css';
 import Modal from '../../components/UI/Modal/Modal';
@@ -21,7 +21,7 @@ const MainPage = (props) => {
         <Form
           submitted={showModalHandler}
           address={{ address: initialAddress }}
-          pathname={props.history.location.pathname}
+          isMainPage
         />
       </Modal>
       <img src={require('../../assets/logo.png')} alt="Address Book logo" />

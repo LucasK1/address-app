@@ -1,6 +1,7 @@
 import React from 'react';
 
 import * as classes from './AddressCard.module.css';
+import Button from '../../UI/Button/Button';
 
 const AddressCard = ({
   address: { name, email, phone, streetAddress, cityAddress, additionalInfo },
@@ -35,6 +36,9 @@ const AddressCard = ({
           <p>{additionalInfo}</p>
         </li>
       </ul>
+      <div className={classes.AddressCard_btn}>
+        <Button small>Delete</Button>
+      </div>
     </div>
   );
 };

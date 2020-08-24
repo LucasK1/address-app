@@ -11,7 +11,15 @@
   padding-top: 1rem;
   box-sizing: border-box;
   transition: 200ms linear;
+  display: flex;
+  flex-flow: column;
 }
+
+.AddressCard_btn {
+  align-self: flex-end;
+  margin-right: 1.5em;
+}
+
 .AddressCard:hover {
   transform: scale(1.1);
   cursor: pointer;

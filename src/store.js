@@ -15,7 +15,6 @@ export const initialAddress = {
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'edit':
-      console.log(action.payload, 'DUPA');
       return { ...state, ...action.payload };
     default:
       return state;

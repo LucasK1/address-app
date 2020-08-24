@@ -14,7 +14,6 @@ const Addresses = (props) => {
   const [addressState, setAddressState] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  // const [addressEdit, setAddressEdit] = useState({});
   const { store, dispatch } = useContext(Context);
 
   const showModalHandler = () => {
@@ -37,47 +36,49 @@ const Addresses = (props) => {
         setLoading(false);
       })
       .catch((err) => console.log(err));
+    // eslint-disable-next-line
   }, []);
 
   const editHandler = (cardId) => {
     setShowModal(true);
-    console.log(addressState);
     const clickedAddress = addressState.filter((el) => el.id === cardId);
     const extractedAddress = clickedAddress[0];
-    console.log(extractedAddress, ' CLICKED');
     dispatch({
       type: 'edit',
       payload: { ...extractedAddress },
     });
-    setTimeout(() => {
-      console.log(store, ' ADDRESS EDIT');
-    }, 2000);
   };
 
-  let addressCards = <Spinner />;
-  if (loading !== true) {
-    addressCards = addressState.map((ad) => {
-      return (
-        <AddressCard
-          key={ad.id}
-          address={ad.address}
-          clicked={() => editHandler(ad.id)}
-        />
-      );
-    });
-  }
+  // let addressCards = <Spinner />;
+  // if (loading !== true) {
+  //   addressCards = addressState.map((item) => {
+  //     return (
+  //       <AddressCard
+  //         key={item.id}
+  //         address={item.address}
+  //         clicked={() => editHandler(item.id)}
+  //       />
+  //     );
+  //   });
+  // }
 
   return (
     <div className={classes.Addresses}>
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
-        <Form
-          address={store}
-          submitted={showModalHandler}
-          pathname={props.history.location.pathname}
-        />
+        <Form address={store} submitted={showModalHandler} isAddressPage />
       </Modal>
-      {addressCards}
+      {loading ? (
+        <Spinner />
+      ) : (
+        addressState.map((item) => (
+          <AddressCard
+            key={item.id}
+            address={item.address}
+            clicked={() => editHandler(item.id)}
+          />
+        ))
+      )}
     </div>
   );
 };

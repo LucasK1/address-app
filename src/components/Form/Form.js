@@ -69,7 +69,7 @@ const Form = (props) => {
   });
   const [loading, setLoading] = useState(false);
 
-  const { store, dispatch } = useContext(Context);
+  const { store } = useContext(Context);
 
   useEffect(() => {
     let updatedAddressForm = {};
@@ -82,7 +82,6 @@ const Form = (props) => {
         },
       };
     }
-    console.log(updatedAddressForm, 'FORM');
     setAddressForm({ ...addressForm, ...updatedAddressForm });
 
     return () => {
@@ -98,6 +97,7 @@ const Form = (props) => {
       }
       setAddressForm({ ...addressForm, ...clearedAddressForm });
     };
+    // eslint-disable-next-line
   }, [props]);
 
   const onChangeHandler = (event, formElementId) => {
@@ -105,7 +105,6 @@ const Form = (props) => {
       ...addressForm[formElementId],
       value: event.target.value,
     };
-    console.log(addressForm);
 
     const updatedAddressForm = {
       ...addressForm,
@@ -122,8 +121,7 @@ const Form = (props) => {
     for (let formElementId in addressForm) {
       formToSend[formElementId] = addressForm[formElementId].value;
     }
-    JSON.stringify(formToSend);
-    if (props.pathname === '/') {
+    if (props.isMainPage) {
       axios
         .post(
           'https://address-app-8dda8.firebaseio.com/addresses.json',
@@ -141,14 +139,11 @@ const Form = (props) => {
           setAddressForm({ ...addressForm, ...resetForm });
           props.submitted();
         })
-        .catch((err) => console.log(err));
-    } else if (props.pathname === '/addresses') {
-      // axios
-      //   .get(
-      //     `https://address-app-8dda8.firebaseio.com/addresses.json?orderBy="$key"`
-      //   )
-      //   .then((res) => console.log(res));
-
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    } else if (props.isAddressPage) {
       axios
         .patch(
           `https://address-app-8dda8.firebaseio.com/addresses/${store.id}.json`,
@@ -173,33 +168,29 @@ const Form = (props) => {
     }
   };
 
-  let addressArray = [];
-  for (const key in addressForm) {
-    addressArray.push({
-      id: key,
-      attributes: addressForm[key],
-    });
-  }
-  let form = <Spinner />;
-  if (loading !== true) {
-    form = (
-      <form onSubmit={submitFormHandler}>
-        {addressArray.map((formElement) => {
-          return (
-            <Input
-              key={formElement.id}
-              elementType={formElement.attributes.elementType}
-              elementConfig={formElement.attributes.config}
-              value={formElement.attributes.value}
-              changed={(event) => onChangeHandler(event, formElement.id)}
-            />
-          );
-        })}
-        <Button small>Submit</Button>
-      </form>
-    );
-  }
-  return <div>{form}</div>;
+  const addressArray = Object.keys(addressForm).map((key) => ({
+    id: key,
+    attributes: addressForm[key],
+  }));
+
+  return loading ? (
+    <Spinner />
+  ) : (
+    <form onSubmit={submitFormHandler}>
+      {addressArray.map((formElement) => {
+        return (
+          <Input
+            key={formElement.id}
+            elementType={formElement.attributes.elementType}
+            elementConfig={formElement.attributes.config}
+            value={formElement.attributes.value}
+            changed={(event) => onChangeHandler(event, formElement.id)}
+          />
+        );
+      })}
+      <Button small>Submit</Button>
+    </form>
+  );
 };
 
 export default Form;
