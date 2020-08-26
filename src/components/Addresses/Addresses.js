@@ -28,17 +28,14 @@ const Addresses = (props) => {
       .get('https://address-app-8dda8.firebaseio.com/addresses.json')
       .then((res) => {
         let fetchedAddresses = [];
-        for (let singleAddress in res.data) {
+        for (const singleAddress in res.data) {
           fetchedAddresses.push({
             id: singleAddress,
             address: res.data[singleAddress],
           });
         }
         // setAddressState([...addressState, ...fetchedAddresses]);
-        addressesContext.setFetchedAddresses([
-          ...addressesContext.fetchedAddresses,
-          ...fetchedAddresses,
-        ]);
+        addressesContext.setFetchedAddresses([...fetchedAddresses]);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -47,13 +44,13 @@ const Addresses = (props) => {
 
   const editHandler = (cardId) => {
     setShowModal(true);
-    const clickedAddress = addressesContext.fetchedAddresses.filter(
+    const clickedAddress = addressesContext.fetchedAddresses.find(
       (el) => el.id === cardId
     );
-    const extractedAddress = clickedAddress[0];
+    console.log(clickedAddress);
     dispatch({
       type: 'edit',
-      payload: { ...extractedAddress },
+      payload: { ...clickedAddress },
     });
   };
 
