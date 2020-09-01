@@ -8,7 +8,7 @@ import Modal from 'components/UI/Modal/Modal';
 import Form from 'components/Form/Form';
 
 import * as classes from './Addresses.module.css';
-import { AddressesContext } from 'context/AddressesContext';
+import { AddressesContext } from '../../context/AddressesContext';
 
 const Addresses = (props) => {
   const [loading, setLoading] = useState(false);
@@ -44,9 +44,9 @@ const Addresses = (props) => {
   }, []);
 
   const editHandler = (cardId) => {
-    setShowModal(true);
     const clickedAddress = fetchedAddresses.find((el) => el.id === cardId);
     editSingleAddress(clickedAddress);
+    setShowModal(true);
   };
 
   return (

@@ -6,7 +6,10 @@ export default (state, action) => {
         fetchedAddresses: action.payload,
       };
     case 'EDIT_SINGLE_ADDRESS':
-      return { ...state, singleAddress: action.payload };
+      return {
+        ...state,
+        singleAddress: action.payload,
+      };
     default:
       return state;
   }

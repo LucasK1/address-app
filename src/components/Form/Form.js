@@ -5,8 +5,8 @@ import Input from 'components/UI/Input/Input';
 import Button from 'components/UI/Button/Button';
 import Spinner from 'components/UI/Spinner/Spinner';
 
+import { AddressesContext } from '../../context/AddressesContext';
 import './Form.module.css';
-import { AddressesContext } from 'context/AddressesContext';
 
 const Form = (props) => {
   const [addressForm, setAddressForm] = useState({
@@ -71,6 +71,7 @@ const Form = (props) => {
   const { singleAddress, setFetchedAddresses } = useContext(AddressesContext);
 
   useEffect(() => {
+    console.log(props, 'props');
     let updatedAddressForm = {};
     for (let key in addressForm) {
       updatedAddressForm = {
@@ -97,7 +98,7 @@ const Form = (props) => {
       setAddressForm({ ...addressForm, ...clearedAddressForm });
     };
     // eslint-disable-next-line
-  }, []);
+  }, [props]);
 
   const onChangeHandler = (event, formElementId) => {
     const updatedFormElement = {

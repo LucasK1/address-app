@@ -26,6 +26,7 @@ const AddressesContextProvider = ({ children }) => {
   };
 
   const editSingleAddress = (info) => {
+    console.log(info, 'info')
     dispatch({ type: 'EDIT_SINGLE_ADDRESS', payload: info });
   };
 
