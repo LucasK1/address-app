@@ -8,15 +8,17 @@ import Modal from '../UI/Modal/Modal';
 import Form from '../Form/Form';
 
 import * as classes from './Addresses.module.css';
-import { singleAddressContext } from '../../store';
-import { AddressesContext } from '../../context/addresses-context';
+import { AddressesContext } from '../../context/AddressesContext';
 
 const Addresses = (props) => {
-  // const [addressState, setAddressState] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { store, dispatch } = useContext(singleAddressContext);
-  const addressesContext = useContext(AddressesContext);
+  const {
+    fetchedAddresses,
+    setFetchedAddresses,
+    singleAddress,
+    editSingleAddress,
+  } = useContext(AddressesContext);
 
   const showModalHandler = () => {
     setShowModal(!showModal);
@@ -28,30 +30,30 @@ const Addresses = (props) => {
       .get('https://address-app-8dda8.firebaseio.com/addresses.json')
       .then((res) => {
         let fetchedAddresses = [];
-        for (const singleAddress in res.data) {
+        for (const address in res.data) {
           fetchedAddresses.push({
-            id: singleAddress,
-            address: res.data[singleAddress],
+            id: address,
+            address: res.data[address],
           });
         }
+        // console.log(fetchedAddresses, 'dup')
         // setAddressState([...addressState, ...fetchedAddresses]);
-        addressesContext.setFetchedAddresses([...fetchedAddresses]);
+        setFetchedAddresses(fetchedAddresses);
         setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch(console.error);
     // eslint-disable-next-line
   }, []);
 
   const editHandler = (cardId) => {
     setShowModal(true);
-    const clickedAddress = addressesContext.fetchedAddresses.find(
-      (el) => el.id === cardId
-    );
+    const clickedAddress = fetchedAddresses.find((el) => el.id === cardId);
     console.log(clickedAddress);
-    dispatch({
-      type: 'edit',
-      payload: { ...clickedAddress },
-    });
+    editSingleAddress(clickedAddress);
+    // dispatch({
+    //   type: 'edit',
+    //   payload: { ...clickedAddress },
+    // });
   };
 
   // let addressCards = <Spinner />;
@@ -71,12 +73,16 @@ const Addresses = (props) => {
     <div className={classes.Addresses}>
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
-        <Form address={store} submitted={showModalHandler} isAddressPage />
+        <Form
+          address={singleAddress}
+          submitted={showModalHandler}
+          isAddressPage
+        />
       </Modal>
       {loading ? (
         <Spinner />
       ) : (
-        addressesContext.fetchedAddresses.map((item) => (
+        fetchedAddresses.map((item) => (
           <AddressCard
             key={item.id}
             address={item.address}

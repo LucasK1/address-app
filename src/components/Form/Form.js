@@ -4,10 +4,9 @@ import axios from 'axios';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import Spinner from '../UI/Spinner/Spinner';
-import { singleAddressContext } from '../../store';
 
 import './Form.module.css';
-import { AddressesContext } from '../../context/addresses-context';
+import { AddressesContext } from '../../context/AddressesContext';
 
 const Form = (props) => {
   const [addressForm, setAddressForm] = useState({
@@ -69,9 +68,7 @@ const Form = (props) => {
     },
   });
   const [loading, setLoading] = useState(false);
-
-  const { store } = useContext(singleAddressContext);
-  const addressesContext = useContext(AddressesContext);
+  const { singleAddress, setFetchedAddresses } = useContext(AddressesContext);
 
   useEffect(() => {
     let updatedAddressForm = {};
@@ -148,7 +145,7 @@ const Form = (props) => {
     } else if (props.isAddressPage) {
       axios
         .patch(
-          `https://address-app-8dda8.firebaseio.com/addresses/${store.id}.json`,
+          `https://address-app-8dda8.firebaseio.com/addresses/${singleAddress.id}.json`,
           formToSend
         )
         .then(() => {
@@ -162,10 +159,10 @@ const Form = (props) => {
                   address: res.data[singleAddress],
                 });
               }
-              addressesContext.setFetchedAddresses([...fetchedAddresses]);
+              setFetchedAddresses(fetchedAddresses);
               setLoading(false);
             })
-            .catch((err) => console.log(err));
+            .catch(console.error);
           setLoading(false);
           const resetForm = {};
           for (let formElementId in addressForm) {
@@ -181,22 +178,6 @@ const Form = (props) => {
           setLoading(false);
           console.log(err);
         });
-
-      // const addressToEdit = addressesContext.fetchedAddresses.find(
-      //   (item) => store.id === item.id
-      // );
-      // const editedAddress = {
-      //   ...addressToEdit,
-      //   address: {
-      //     ...addressToEdit.address,
-      //     ...formToSend,
-      //   },
-      // };
-      // addressesContext.setFetchedAddresses([
-      //   ...addressesContext.fetchedAddresses,
-      //   editedAddress,
-      // ]);
-      // console.log(editedAddress);
     }
   };
 

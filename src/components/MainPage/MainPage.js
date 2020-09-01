@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 import * as classes from './MainPage.module.css';
-import Modal from '../../components/UI/Modal/Modal';
-import Form from '../../components/Form/Form';
-import Backdrop from '../../components/UI/Backdrop/Backdrop';
-import Button from '../../components/UI/Button/Button';
-import { initialAddress } from '../../store';
+import Modal from '../UI/Modal/Modal';
+import Form from '../Form/Form';
+import Backdrop from '../UI/Backdrop/Backdrop';
+import Button from '../UI/Button/Button';
+import { initialState } from '../../context/AddressesContext';
 
 const MainPage = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -20,7 +20,7 @@ const MainPage = (props) => {
       <Modal show={showModal}>
         <Form
           submitted={showModalHandler}
-          address={{ address: initialAddress }}
+          address={{ address: initialState.singleAddress }}
           isMainPage
         />
       </Modal>
