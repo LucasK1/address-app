@@ -1,6 +1,8 @@
 import React from 'react';
-import * as classes from './NavBar.module.css';
+
 import NavItems from './NavItems/NavItems';
+
+import * as classes from './NavBar.module.css';
 
 const NavBar = (props) => {
   return (

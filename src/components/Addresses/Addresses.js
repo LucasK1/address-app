@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 import AddressCard from './AddressCard/AddressCard';
-import Spinner from '../UI/Spinner/Spinner';
-import Backdrop from '../UI/Backdrop/Backdrop';
-import Modal from '../UI/Modal/Modal';
-import Form from '../Form/Form';
+import Spinner from 'components/UI/Spinner/Spinner';
+import Backdrop from 'components/UI/Backdrop/Backdrop';
+import Modal from 'components/UI/Modal/Modal';
+import Form from 'components/Form/Form';
 
 import * as classes from './Addresses.module.css';
-import { AddressesContext } from '../../context/AddressesContext';
+import { AddressesContext } from 'context/AddressesContext';
 
 const Addresses = (props) => {
   const [loading, setLoading] = useState(false);
@@ -36,8 +36,6 @@ const Addresses = (props) => {
             address: res.data[address],
           });
         }
-        // console.log(fetchedAddresses, 'dup')
-        // setAddressState([...addressState, ...fetchedAddresses]);
         setFetchedAddresses(fetchedAddresses);
         setLoading(false);
       })
@@ -48,26 +46,8 @@ const Addresses = (props) => {
   const editHandler = (cardId) => {
     setShowModal(true);
     const clickedAddress = fetchedAddresses.find((el) => el.id === cardId);
-    console.log(clickedAddress);
     editSingleAddress(clickedAddress);
-    // dispatch({
-    //   type: 'edit',
-    //   payload: { ...clickedAddress },
-    // });
   };
-
-  // let addressCards = <Spinner />;
-  // if (loading !== true) {
-  //   addressCards = addressState.map((item) => {
-  //     return (
-  //       <AddressCard
-  //         key={item.id}
-  //         address={item.address}
-  //         clicked={() => editHandler(item.id)}
-  //       />
-  //     );
-  //   });
-  // }
 
   return (
     <div className={classes.Addresses}>

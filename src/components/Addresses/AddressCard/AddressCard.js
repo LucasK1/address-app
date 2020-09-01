@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as classes from './AddressCard.module.css';
-import Button from '../../UI/Button/Button';
+import Button from 'components/UI/Button/Button';
 
 const AddressCard = ({
   address: { name, email, phone, streetAddress, cityAddress, additionalInfo },
