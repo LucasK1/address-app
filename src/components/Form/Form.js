@@ -117,10 +117,11 @@ const Form = (props) => {
   const submitFormHandler = (event) => {
     event.preventDefault();
     setLoading(true);
-    const formToSend = {};
+    let formToSend = {};
     for (let formElementId in addressForm) {
       formToSend[formElementId] = addressForm[formElementId].value;
     }
+    formToSend = { ...formToSend, addedOn: new Date() };
     if (props.isMainPage) {
       axios
         .post(

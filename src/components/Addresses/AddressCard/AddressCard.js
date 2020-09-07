@@ -1,10 +1,19 @@
 import React from 'react';
+import moment from 'moment';
 
 import * as classes from './AddressCard.module.css';
-import Button from 'components/UI/Button/Button';
+// import Button from 'components/UI/Button/Button';
 
 const AddressCard = ({
-  address: { name, email, phone, streetAddress, cityAddress, additionalInfo },
+  address: {
+    name,
+    email,
+    phone,
+    streetAddress,
+    cityAddress,
+    additionalInfo,
+    addedOn,
+  },
   clicked,
 }) => {
   return (
@@ -35,10 +44,18 @@ const AddressCard = ({
           <span>Info:</span>
           <p>{additionalInfo}</p>
         </li>
+        <li>
+          <span>Added On:</span>
+          <p>
+            {addedOn && typeof addedOn === 'string'
+              ? moment(addedOn).format('DD/MM/YYYY hh:mm')
+              : 'Unknown'}
+          </p>
+        </li>
       </ul>
-      <div className={classes.AddressCard_btn}>
+      {/* <div className={classes.AddressCard_btn}>
         <Button small>Delete</Button>
-      </div>
+      </div> */}
     </div>
   );
 };
