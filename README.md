@@ -4,3 +4,5 @@ An address book application which allows its users to add, edit, and remove addr
 
 To implement:
 Sorting
+Removing an address
+Authentication
