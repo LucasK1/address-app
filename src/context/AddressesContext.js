@@ -21,12 +21,13 @@ export const AddressesContext = createContext(initialState);
 const AddressesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AddressesReducer, initialState);
 
+  // Addresses fetched from Firebase
   const setFetchedAddresses = (fetchedAddresses) => {
     dispatch({ type: 'SET_FETCHED_ADDRESSES', payload: fetchedAddresses });
   };
 
+  // State containing an address which is to be edited
   const editSingleAddress = (info) => {
-    console.log(info, 'info')
     dispatch({ type: 'EDIT_SINGLE_ADDRESS', payload: info });
   };
 

@@ -17,3 +17,9 @@
 li {
   list-style: none;
 }
+
+@media (max-height: 768px) {
+  .NavItem_Link {
+    font-size: 1.2rem;
+  }
+}

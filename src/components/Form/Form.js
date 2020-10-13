@@ -70,6 +70,7 @@ const Form = (props) => {
   const [loading, setLoading] = useState(false);
   const { singleAddress, setFetchedAddresses } = useContext(AddressesContext);
 
+  // Makes the form blank if it's a new address and fills it if it's an edit
   useEffect(() => {
     console.log(props, 'props');
     let updatedAddressForm = {};
@@ -123,6 +124,7 @@ const Form = (props) => {
     }
     formToSend = { ...formToSend, addedOn: new Date() };
     if (props.isMainPage) {
+      // Sends new address to Firebase
       axios
         .post(
           'https://address-app-8dda8.firebaseio.com/addresses.json',
@@ -144,7 +146,8 @@ const Form = (props) => {
           setLoading(false);
           console.log(err);
         });
-    } else if (props.isAddressPage) {
+    } else if (props.isAddressPage) { 
+      // Edits data on Firebase
       axios
         .patch(
           `https://address-app-8dda8.firebaseio.com/addresses/${singleAddress.id}.json`,
