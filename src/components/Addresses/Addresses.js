@@ -65,7 +65,8 @@ const Addresses = (props) => {
           (item) => cardId !== item.id
         );
         setFetchedAddresses(remainingAddresses);
-      });
+      })
+      .catch(console.error);
   };
 
   return (
