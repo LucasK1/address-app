@@ -61,6 +61,8 @@ const Form = (props) => {
         style: {
           resize: 'vertical',
         },
+        maxlength: '200',
+        rows: '4',
         placeholder: 'Additional information',
         required: true,
       },

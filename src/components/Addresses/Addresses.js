@@ -55,7 +55,7 @@ const Addresses = (props) => {
 
   const deleteHandler = (e, cardId) => {
     e.preventDefault();
-    console.log(cardId);
+    setLoading(true);
     axios
       .delete(
         `https://address-app-8dda8.firebaseio.com/addresses/${cardId}.json`
@@ -65,8 +65,12 @@ const Addresses = (props) => {
           (item) => cardId !== item.id
         );
         setFetchedAddresses(remainingAddresses);
+        setLoading(false);
       })
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   return (
