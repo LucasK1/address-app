@@ -24,7 +24,7 @@ const Addresses = (props) => {
     setShowModal(!showModal);
   };
 
-  useEffect(() => {
+  const fetchAddresses = () => {
     setLoading(true);
     axios
       .get('https://address-app-8dda8.firebaseio.com/addresses.json')
@@ -40,6 +40,10 @@ const Addresses = (props) => {
         setLoading(false);
       })
       .catch(console.error);
+  };
+
+  useEffect(() => {
+    fetchAddresses();
     // eslint-disable-next-line
   }, []);
 
@@ -47,6 +51,21 @@ const Addresses = (props) => {
     const clickedAddress = fetchedAddresses.find((el) => el.id === cardId);
     editSingleAddress(clickedAddress);
     setShowModal(true);
+  };
+
+  const deleteHandler = (e, cardId) => {
+    e.preventDefault();
+    console.log(cardId);
+    axios
+      .delete(
+        `https://address-app-8dda8.firebaseio.com/addresses/${cardId}.json`
+      )
+      .then((res) => {
+        const remainingAddresses = fetchedAddresses.filter(
+          (item) => cardId !== item.id
+        );
+        setFetchedAddresses(remainingAddresses);
+      });
   };
 
   return (
@@ -67,6 +86,7 @@ const Addresses = (props) => {
             key={item.id}
             address={item.address}
             clicked={() => editHandler(item.id)}
+            onDeleteClick={(e) => deleteHandler(e, item.id)}
           />
         ))
       )}

@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import * as classes from './AddressCard.module.css';
+import Button from 'components/UI/Button/Button';
 // import Button from 'components/UI/Button/Button';
 
 const AddressCard = ({
@@ -15,10 +16,11 @@ const AddressCard = ({
     addedOn,
   },
   clicked,
+  onDeleteClick,
 }) => {
   return (
-    <div className={classes.AddressCard} onClick={clicked}>
-      <ul>
+    <div className={classes.AddressCard}>
+      <ul onClick={clicked}>
         <li>
           <span>Name:</span>
           <p>{name}</p>
@@ -53,9 +55,11 @@ const AddressCard = ({
           </p>
         </li>
       </ul>
-      {/* <div className={classes.AddressCard_btn}>
-        <Button small>Delete</Button>
-      </div> */}
+      <div className={classes.AddressCard_btn}>
+        <Button small red submitted={onDeleteClick}>
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };
