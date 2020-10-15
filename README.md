@@ -9,4 +9,4 @@ To implement:
 * Form validation
 
 Known bugs:
-* Added On date changes after an edit
+* ~~Added On date changes after an edit~~

@@ -125,6 +125,7 @@ const Form = (props) => {
     for (let formElementId in addressForm) {
       formToSend[formElementId] = addressForm[formElementId].value;
     }
+    const formToEdit = {...formToSend};
     formToSend = { ...formToSend, addedOn: new Date() };
     if (props.isMainPage) {
       // Sends new address to Firebase
@@ -154,7 +155,7 @@ const Form = (props) => {
       axios
         .patch(
           `https://address-app-8dda8.firebaseio.com/addresses/${singleAddress.id}.json`,
-          formToSend
+          formToEdit
         )
         .then(() => {
           // Fetches modified addresses from the database
