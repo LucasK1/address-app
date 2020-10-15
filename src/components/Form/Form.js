@@ -149,13 +149,14 @@ const Form = (props) => {
           console.log(err);
         });
     } else if (props.isAddressPage) { 
-      // Edits data on Firebase
+      // Edits data in the database
       axios
         .patch(
           `https://address-app-8dda8.firebaseio.com/addresses/${singleAddress.id}.json`,
           formToSend
         )
         .then(() => {
+          // Fetches modified addresses from the database
           axios
             .get('https://address-app-8dda8.firebaseio.com/addresses.json')
             .then((res) => {
@@ -188,6 +189,7 @@ const Form = (props) => {
     }
   };
 
+  // Array from which the form is generated
   const addressArray = Object.keys(addressForm).map((key) => ({
     id: key,
     attributes: addressForm[key],
