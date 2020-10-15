@@ -117,6 +117,7 @@ const Form = (props) => {
     setAddressForm(updatedAddressForm);
   };
 
+  // Depending from which site the Form has been submitted it either sends a new address to the database or edits an existing one and updates the page
   const submitFormHandler = (event) => {
     event.preventDefault();
     setLoading(true);

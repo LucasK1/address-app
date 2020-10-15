@@ -26,9 +26,9 @@ const AddressesContextProvider = ({ children }) => {
     dispatch({ type: 'SET_FETCHED_ADDRESSES', payload: fetchedAddresses });
   };
 
-  // State containing an address which is to be edited
-  const editSingleAddress = (info) => {
-    dispatch({ type: 'EDIT_SINGLE_ADDRESS', payload: info });
+  // State containing a single address which is to be edited
+  const editSingleAddress = (editedAddress) => {
+    dispatch({ type: 'EDIT_SINGLE_ADDRESS', payload: editedAddress });
   };
 
   return (

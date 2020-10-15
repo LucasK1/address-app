@@ -43,16 +43,19 @@ const Addresses = (props) => {
   };
 
   useEffect(() => {
+    // Fetch addresses at the page load
     fetchAddresses();
     // eslint-disable-next-line
   }, []);
 
+  // Opens a modal with a form to edit an address when an address card is clicked
   const editHandler = (cardId) => {
     const clickedAddress = fetchedAddresses.find((el) => el.id === cardId);
     editSingleAddress(clickedAddress);
     setShowModal(true);
   };
 
+  // Deletes an address from the database when delete button is clicked
   const deleteHandler = (e, cardId) => {
     e.preventDefault();
     setLoading(true);
