@@ -8,8 +8,6 @@
   justify-content: space-between;
   align-items: center;
   z-index: 500;
-  /* padding-right: 40px; */
-  /* padding-left: 20px; */
 }
 .NavBar img {
   width: 5rem;

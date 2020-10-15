@@ -61,7 +61,7 @@ const Form = (props) => {
         style: {
           resize: 'vertical',
         },
-        maxlength: '200',
+        maxLength: '200',
         rows: '4',
         placeholder: 'Additional information',
         required: true,
@@ -74,7 +74,6 @@ const Form = (props) => {
 
   // Makes the form blank if it's a new address and fills it if it's an edit
   useEffect(() => {
-    console.log(props, 'props');
     let updatedAddressForm = {};
     for (let key in addressForm) {
       updatedAddressForm = {
@@ -114,7 +113,7 @@ const Form = (props) => {
       [formElementId]: updatedFormElement,
     };
 
-    setAddressForm(updatedAddressForm);
+    setAddressForm((prevForm) => prevForm = {...updatedAddressForm});
   };
 
   // Depending from which site the Form has been submitted it either sends a new address to the database or edits an existing one and updates the page
