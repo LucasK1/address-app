@@ -6,6 +6,7 @@ To implement:
 * Sorting
 * ~~Removing an address~~
 * Authentication
+* Form validation
 
 Known bugs:
 * Added On date changes after an edit
