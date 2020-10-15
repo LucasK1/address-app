@@ -6,3 +6,6 @@ To implement:
 * Sorting
 * ~~Removing an address~~
 * Authentication
+
+Known bugs:
+* Added On date changes after an edit
