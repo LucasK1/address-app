@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 
 import Input from 'components/UI/Input/Input';
@@ -9,6 +9,7 @@ import { AddressesContext } from '../../context/AddressesContext';
 import './Form.module.css';
 
 const Form = (props) => {
+  const nameRef = useRef(null);  // useRef to focus on the first input when opening the form
   const [addressForm, setAddressForm] = useState({
     name: {
       elementType: 'input',
@@ -16,6 +17,7 @@ const Form = (props) => {
         type: 'text',
         placeholder: 'Name*',
         required: true,
+        ref: nameRef,
       },
       value: '',
     },
@@ -74,6 +76,8 @@ const Form = (props) => {
 
   // Makes the form blank if it's a new address and fills it if it's an edit
   useEffect(() => {
+    nameRef.current.focus(); // Focus on the first input in the Form
+
     let updatedAddressForm = {};
     for (let key in addressForm) {
       updatedAddressForm = {
@@ -113,7 +117,7 @@ const Form = (props) => {
       [formElementId]: updatedFormElement,
     };
 
-    setAddressForm((prevForm) => prevForm = {...updatedAddressForm});
+    setAddressForm((prevForm) => (prevForm = { ...updatedAddressForm }));
   };
 
   // Depending from which site the Form has been submitted it either sends a new address to the database or edits an existing one and updates the page
@@ -124,7 +128,7 @@ const Form = (props) => {
     for (let formElementId in addressForm) {
       formToSend[formElementId] = addressForm[formElementId].value;
     }
-    const formToEdit = {...formToSend};
+    const formToEdit = { ...formToSend };
     formToSend = { ...formToSend, addedOn: new Date() };
     if (props.isMainPage) {
       // Sends new address to Firebase
@@ -149,7 +153,7 @@ const Form = (props) => {
           setLoading(false);
           console.log(err);
         });
-    } else if (props.isAddressPage) { 
+    } else if (props.isAddressPage) {
       // Edits data in the database
       axios
         .patch(
