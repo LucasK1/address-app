@@ -10,6 +10,7 @@ import Form from 'components/Form/Form';
 import * as classes from './Addresses.module.css';
 import { AddressesContext } from '../../context/AddressesContext';
 import Button from 'components/UI/Button/Button';
+import dayjs from 'dayjs';
 
 const Addresses = (props) => {
   const [loading, setLoading] = useState(false);
@@ -80,10 +81,10 @@ const Addresses = (props) => {
   const sort = (e, keyword) => {
     e.preventDefault();
     setLoading(true);
-    let sorted;
+    const sorted = [...fetchedAddresses];
     switch (keyword) {
       case 'byAlpha':
-        sorted = fetchedAddresses.sort((a, b) => {
+        sorted.sort((a, b) => {
           const x = a.address.name.toLowerCase();
           const y = b.address.name.toLowerCase();
           if (x < y) {
@@ -96,27 +97,38 @@ const Addresses = (props) => {
         });
         break;
       case 'byNewest':
-        sorted = fetchedAddresses.sort(
-          (a, b) => a.address.addedOn < b.address.addedOn
-        );
+        // sorted.sort((a, b) => a.address.addedOn < b.address.addedOn);
+        sorted.sort((a, b) => {
+          return dayjs(a.address.addedOn).isBefore(dayjs(b.address.addedOn))
+            ? 1
+            : -1;
+        });
+        console.log(sorted);
         break;
       case 'byOldest':
-        sorted = fetchedAddresses.sort(
-          (a, b) => a.address.addedOn > b.address.addedOn
-        );
+        // sorted = fetchedAddresses.sort(
+        //   (a, b) => +a.address.addedOn > +b.address.addedOn
+        // );
+        sorted.sort((a, b) => {
+          return dayjs(a.address.addedOn).isAfter(dayjs(b.address.addedOn))
+            ? 1
+            : -1;
+        });
+        console.log(sorted);
         break;
       default:
-        sorted = fetchedAddresses;
-        break;
+        return sorted;
     }
-    setFetchedAddresses([...sorted]);
+    setFetchedAddresses(sorted);
     setLoading(false);
   };
 
   return (
     <>
       <div className={classes.Main}>
-        <Button submitted={(e) => sort(e, 'byAlpha')}>Sort Alphabetically A-Z</Button>
+        <Button submitted={(e) => sort(e, 'byAlpha')}>
+          Sort Alphabetically A-Z
+        </Button>
         <Button submitted={(e) => sort(e, 'byNewest')}>
           Sort Newest-Oldest
         </Button>
