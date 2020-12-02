@@ -10,15 +10,15 @@
 
 .Big {
   font-size: 1.25rem;
-  width: 12rem;
-  height: 5rem;
+  width: 200px;
+  height: 80px;
   transition: 0.1s linear;
 }
 
 .Small {
   font-size: 0.9rem;
-  width: 5rem;
-  height: 2rem;
+  width: 80px;
+  height: 32px;
   transition: 0.1s linear;
 }
 

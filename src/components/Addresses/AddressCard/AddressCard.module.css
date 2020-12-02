@@ -1,13 +1,13 @@
 .AddressCard {
-  width: 18rem;
+  width: 290px;
   height: 100%;
   margin: 20px;
   border-radius: 15px;
   background-color: #24262d;
   color: #ccc;
   display: flex;
-  padding-left: 2rem;
-  padding-top: 0.5rem;
+  padding-left: 32px;
+  padding-top: 8px;
   box-sizing: border-box;
   transition: 200ms linear;
   display: flex;
@@ -20,7 +20,7 @@
 }
 
 .AddressCard p {
-  margin: 0.5rem;
+  margin: 8px;
   width: 90%;
   word-wrap: break-word;
 }
@@ -35,7 +35,7 @@
 
 .AddressCard_btn {
   align-self: flex-end;
-  margin-right: 1.5rem;
-  margin-bottom: 1rem;
+  margin-right: 25px;
+  margin-bottom: 16px;
   background-color: red;
 }

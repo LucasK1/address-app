@@ -2,11 +2,11 @@
   display: flex;
   justify-items: space-around;
   align-content: space-around;
-  margin-right: 2rem;
+  margin-right: 32px;
 }
 
 @media (max-width: 768px) {
   .NavItems {
-    margin-right: 1rem;
+    margin-right: 16px;
   }
 }

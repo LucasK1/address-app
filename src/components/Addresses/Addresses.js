@@ -136,7 +136,7 @@ const Addresses = (props) => {
       <div className={classes.SearchSort}>
         <div>
           <Button submitted={(e) => sort(e, 'byAlpha')}>
-            Sort Alphabetically A-Z
+            Sort Alphabetically
           </Button>
           <Button submitted={(e) => sort(e, 'byNewest')}>
             Sort Newest-Oldest
