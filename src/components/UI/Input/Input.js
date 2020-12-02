@@ -29,14 +29,20 @@ const Input = (props) => {
     default:
       inputElement = (
         <input
+          className={inputClasses.join(' ')}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              props.submitted(e);
+            }
+          }}
         />
       );
   }
 
-  return <div>{inputElement}</div>;
+  return <>{inputElement}</>;
 };
 
 export default Input;

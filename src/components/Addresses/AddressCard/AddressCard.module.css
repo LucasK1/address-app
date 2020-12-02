@@ -3,7 +3,7 @@
   height: 100%;
   margin: 20px;
   border-radius: 15px;
-  background-color: #24262D;
+  background-color: #24262d;
   color: #ccc;
   display: flex;
   padding-left: 2rem;
@@ -18,18 +18,24 @@
   transform: scale(1.1);
   cursor: pointer;
 }
+
 .AddressCard p {
   margin: 0.5rem;
   width: 90%;
   word-wrap: break-word;
 }
+
 .AddressCard a {
   text-decoration: underline;
 }
+
+.AddressCard > ul > li > span {
+  font-weight: 800;
+}
+
 .AddressCard_btn {
   align-self: flex-end;
   margin-right: 1.5rem;
   margin-bottom: 1rem;
   background-color: red;
 }
-

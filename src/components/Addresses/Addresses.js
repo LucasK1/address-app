@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 import AddressCard from './AddressCard/AddressCard';
 import Spinner from 'components/UI/Spinner/Spinner';
 import Backdrop from 'components/UI/Backdrop/Backdrop';
 import Modal from 'components/UI/Modal/Modal';
 import Form from 'components/Form/Form';
+import Button from 'components/UI/Button/Button';
+import Input from 'components/UI/Input/Input';
 
 import * as classes from './Addresses.module.css';
 import { AddressesContext } from '../../context/AddressesContext';
-import Button from 'components/UI/Button/Button';
-import dayjs from 'dayjs';
 
 const Addresses = (props) => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [searchWord, setSearchWord] = useState('');
   const {
     fetchedAddresses,
     setFetchedAddresses,
@@ -22,11 +24,8 @@ const Addresses = (props) => {
     editSingleAddress,
   } = useContext(AddressesContext);
 
-  const showModalHandler = () => {
-    setShowModal(!showModal);
-  };
-
-  const fetchAddresses = () => {
+  useEffect(() => {
+    // Fetch addresses at the page load
     setLoading(true);
     axios
       .get('https://address-app-8dda8.firebaseio.com/addresses.json')
@@ -42,13 +41,13 @@ const Addresses = (props) => {
         setLoading(false);
       })
       .catch(console.error);
-  };
-
-  useEffect(() => {
-    // Fetch addresses at the page load
-    fetchAddresses();
     // eslint-disable-next-line
   }, []);
+
+
+  const showModalHandler = () => {
+    setShowModal(!showModal);
+  };
 
   // Opens a modal with a form to edit an address when an address card is clicked
   const editHandler = (cardId) => {
@@ -78,6 +77,19 @@ const Addresses = (props) => {
       });
   };
 
+  const onChangeSearchHandler = (e) => {
+    e.preventDefault();
+    setSearchWord(e.target.value);
+  };
+
+  const submitSearch = (e) => {
+    let filteredAddresses = fetchedAddresses;
+    filteredAddresses = filteredAddresses.filter((add) => {
+      return add.address.name === e.target.value;
+    });
+    setFetchedAddresses(filteredAddresses);
+  };
+
   const sort = (e, keyword) => {
     e.preventDefault();
     setLoading(true);
@@ -97,7 +109,6 @@ const Addresses = (props) => {
         });
         break;
       case 'byNewest':
-        // sorted.sort((a, b) => a.address.addedOn < b.address.addedOn);
         sorted.sort((a, b) => {
           return dayjs(a.address.addedOn).isBefore(dayjs(b.address.addedOn))
             ? 1
@@ -106,9 +117,6 @@ const Addresses = (props) => {
         console.log(sorted);
         break;
       case 'byOldest':
-        // sorted = fetchedAddresses.sort(
-        //   (a, b) => +a.address.addedOn > +b.address.addedOn
-        // );
         sorted.sort((a, b) => {
           return dayjs(a.address.addedOn).isAfter(dayjs(b.address.addedOn))
             ? 1
@@ -125,16 +133,26 @@ const Addresses = (props) => {
 
   return (
     <>
-      <div className={classes.Main}>
-        <Button submitted={(e) => sort(e, 'byAlpha')}>
-          Sort Alphabetically A-Z
-        </Button>
-        <Button submitted={(e) => sort(e, 'byNewest')}>
-          Sort Newest-Oldest
-        </Button>
-        <Button submitted={(e) => sort(e, 'byOldest')}>
-          Sort Oldest-Newest
-        </Button>
+      <div className={classes.SearchSort}>
+        <div>
+          <Button submitted={(e) => sort(e, 'byAlpha')}>
+            Sort Alphabetically A-Z
+          </Button>
+          <Button submitted={(e) => sort(e, 'byNewest')}>
+            Sort Newest-Oldest
+          </Button>
+          <Button submitted={(e) => sort(e, 'byOldest')}>
+            Sort Oldest-Newest
+          </Button>
+        </div>
+        <div>
+          <Input
+            elementConfig={{ type: 'text', placeholder: 'Search' }}
+            changed={onChangeSearchHandler}
+            value={searchWord}
+            submitted={submitSearch}
+          />
+        </div>
       </div>
       <div className={classes.Addresses}>
         <Backdrop show={showModal} clicked={showModalHandler} />
@@ -149,14 +167,15 @@ const Addresses = (props) => {
           <Spinner />
         ) : (
           <>
-            {fetchedAddresses.map((item) => (
-              <AddressCard
-                key={item.id}
-                address={item.address}
-                clicked={() => editHandler(item.id)}
-                onDeleteClick={(e) => deleteHandler(e, item.id)}
-              />
-            ))}
+            {fetchedAddresses &&
+              fetchedAddresses.map((item) => (
+                <AddressCard
+                  key={item.id}
+                  address={item.address}
+                  clicked={() => editHandler(item.id)}
+                  onDeleteClick={(e) => deleteHandler(e, item.id)}
+                />
+              ))}
           </>
         )}
       </div>

@@ -9,7 +9,7 @@ import { AddressesContext } from '../../context/AddressesContext';
 import './Form.module.css';
 
 const Form = (props) => {
-  const nameRef = useRef(null);  // useRef to focus on the first input when opening the form
+  const nameRef = useRef(null); // useRef to focus on the first input when opening the form
   const [addressForm, setAddressForm] = useState({
     name: {
       elementType: 'input',
@@ -76,7 +76,9 @@ const Form = (props) => {
 
   // Makes the form blank if it's a new address and fills it if it's an edit
   useEffect(() => {
-    nameRef.current.focus(); // Focus on the first input in the Form
+    if (props.isMainPage) {
+      nameRef.current.focus(); // Focus on the first input in the Form
+    }
 
     let updatedAddressForm = {};
     for (let key in addressForm) {

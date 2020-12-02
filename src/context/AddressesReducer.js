@@ -1,6 +1,7 @@
 export default (state, action) => {
   switch (action.type) {
     case 'SET_FETCHED_ADDRESSES':
+      console.log(action.payload)
       return {
         ...state,
         fetchedAddresses: action.payload,
