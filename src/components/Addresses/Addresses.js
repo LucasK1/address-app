@@ -13,7 +13,7 @@ import Input from 'components/UI/Input/Input';
 import * as classes from './Addresses.module.css';
 import { AddressesContext } from '../../context/AddressesContext';
 
-const Addresses = (props) => {
+const Addresses = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [searchWord, setSearchWord] = useState('');
@@ -32,14 +32,19 @@ const Addresses = (props) => {
     axios
       .get('https://address-app-8dda8.firebaseio.com/addresses.json')
       .then((res) => {
-        let fetchedAddresses = [];
+        let addressesFromServer = [];
         for (const address in res.data) {
-          fetchedAddresses.push({
+          addressesFromServer.push({
             id: address,
             address: res.data[address],
           });
         }
-        setFetchedAddresses(fetchedAddresses);
+        addressesFromServer.sort((a, b) => {
+          return dayjs(a.address.addedOn).isBefore(dayjs(b.address.addedOn))
+            ? 1
+            : -1;
+        });
+        setFetchedAddresses(addressesFromServer);
         setLoading(false);
       })
       .catch(console.error);
@@ -78,11 +83,13 @@ const Addresses = (props) => {
       });
   };
 
+  // Search bar change handler
   const onChangeSearchHandler = (e) => {
     e.preventDefault();
     setSearchWord(e.target.value);
   };
 
+  // Search Submit Handler
   const submitSearch = (e) => {
     let filteredAddresses = fetchedAddresses;
     filteredAddresses = filteredAddresses.filter((add) => {
@@ -91,10 +98,14 @@ const Addresses = (props) => {
     setSearchedAddresses(filteredAddresses);
   };
 
-  const sort = (e, keyword) => {
+  // Sort Buttons Handler
+  const sortHandler = (e, keyword) => {
     e.preventDefault();
     setLoading(true);
-    const sorted = [...fetchedAddresses];
+    const sorted =
+      searchedAddresses.length > 0
+        ? [...searchedAddresses]
+        : [...fetchedAddresses];
     switch (keyword) {
       case 'byAlpha':
         sorted.sort((a, b) => {
@@ -128,7 +139,9 @@ const Addresses = (props) => {
       default:
         return sorted;
     }
-    setFetchedAddresses(sorted);
+    searchedAddresses.length > 0
+      ? setSearchedAddresses(sorted)
+      : setFetchedAddresses(sorted);
     setLoading(false);
   };
 
@@ -136,13 +149,13 @@ const Addresses = (props) => {
     <>
       <div className={classes.SearchSort}>
         <div>
-          <Button submitted={(e) => sort(e, 'byAlpha')}>
+          <Button submitted={(e) => sortHandler(e, 'byAlpha')}>
             Sort Alphabetically
           </Button>
-          <Button submitted={(e) => sort(e, 'byNewest')}>
+          <Button submitted={(e) => sortHandler(e, 'byNewest')}>
             Sort Newest-Oldest
           </Button>
-          <Button submitted={(e) => sort(e, 'byOldest')}>
+          <Button submitted={(e) => sortHandler(e, 'byOldest')}>
             Sort Oldest-Newest
           </Button>
         </div>
