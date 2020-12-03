@@ -3,6 +3,7 @@ import AddressesReducer from './AddressesReducer';
 
 export const initialState = {
   fetchedAddresses: [],
+  searchedAddresses: [],
   singleAddress: {
     id: '',
     address: {
@@ -31,13 +32,19 @@ const AddressesContextProvider = ({ children }) => {
     dispatch({ type: 'EDIT_SINGLE_ADDRESS', payload: editedAddress });
   };
 
+  const setSearchedAddresses = (searchedAddresses) => {
+    dispatch({ type: 'SET_SEARCHED_ADDRESSES', payload: searchedAddresses });
+  };
+
   return (
     <AddressesContext.Provider
       value={{
         fetchedAddresses: state.fetchedAddresses,
         singleAddress: state.singleAddress,
+        searchedAddresses: state.searchedAddresses,
         setFetchedAddresses,
         editSingleAddress,
+        setSearchedAddresses,
       }}>
       {children}
     </AddressesContext.Provider>

@@ -22,6 +22,8 @@ const Addresses = (props) => {
     setFetchedAddresses,
     singleAddress,
     editSingleAddress,
+    searchedAddresses,
+    setSearchedAddresses,
   } = useContext(AddressesContext);
 
   useEffect(() => {
@@ -43,7 +45,6 @@ const Addresses = (props) => {
       .catch(console.error);
     // eslint-disable-next-line
   }, []);
-
 
   const showModalHandler = () => {
     setShowModal(!showModal);
@@ -87,7 +88,7 @@ const Addresses = (props) => {
     filteredAddresses = filteredAddresses.filter((add) => {
       return add.address.name === e.target.value;
     });
-    setFetchedAddresses(filteredAddresses);
+    setSearchedAddresses(filteredAddresses);
   };
 
   const sort = (e, keyword) => {
@@ -167,15 +168,23 @@ const Addresses = (props) => {
           <Spinner />
         ) : (
           <>
-            {fetchedAddresses &&
-              fetchedAddresses.map((item) => (
-                <AddressCard
-                  key={item.id}
-                  address={item.address}
-                  clicked={() => editHandler(item.id)}
-                  onDeleteClick={(e) => deleteHandler(e, item.id)}
-                />
-              ))}
+            {searchedAddresses.length !== 0
+              ? searchedAddresses.map((item) => (
+                  <AddressCard
+                    key={item.id}
+                    address={item.address}
+                    clicked={() => editHandler(item.id)}
+                    onDeleteClick={(e) => deleteHandler(e, item.id)}
+                  />
+                ))
+              : fetchedAddresses.map((item) => (
+                  <AddressCard
+                    key={item.id}
+                    address={item.address}
+                    clicked={() => editHandler(item.id)}
+                    onDeleteClick={(e) => deleteHandler(e, item.id)}
+                  />
+                ))}
           </>
         )}
       </div>
