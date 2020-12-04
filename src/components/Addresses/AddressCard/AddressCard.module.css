@@ -9,14 +9,14 @@
   padding-left: 32px;
   padding-top: 8px;
   box-sizing: border-box;
-  transition: 200ms linear;
+  transition: all 200ms linear;
   display: flex;
   flex-flow: column;
 }
 
 .AddressCard:hover {
   transform: scale(1.1);
-  cursor: pointer;
+  box-shadow: 2px 2px 15px #000;
 }
 
 .AddressCard p {
@@ -33,9 +33,9 @@
   font-weight: 800;
 }
 
-.AddressCard_btn {
-  align-self: flex-end;
-  margin-right: 25px;
-  margin-bottom: 16px;
-  background-color: red;
+.AddressCard_btns {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 32px;
+  padding-bottom: 16px;
 }

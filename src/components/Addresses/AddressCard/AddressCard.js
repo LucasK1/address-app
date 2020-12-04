@@ -20,7 +20,7 @@ const AddressCard = ({
 }) => {
   return (
     <div className={classes.AddressCard}>
-      <ul onClick={clicked}>
+      <ul>
         <li>
           <span>Name:</span>
           <p>{name}</p>
@@ -55,7 +55,10 @@ const AddressCard = ({
           </p>
         </li>
       </ul>
-      <div className={classes.AddressCard_btn}>
+      <div className={classes.AddressCard_btns}>
+        <Button small submitted={clicked}>
+          Edit
+        </Button>
         <Button small red submitted={onDeleteClick}>
           Delete
         </Button>
