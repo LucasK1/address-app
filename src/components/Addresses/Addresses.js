@@ -99,13 +99,18 @@ const Addresses = () => {
           radioValue = btn.value;
         }
       }
+      if (!radioValue) {
+        alert('Check a radio button to search!');
+      }
     }
 
-    let filteredAddresses = fetchedAddresses;
-    filteredAddresses = filteredAddresses.filter((add) => {
+    const filteredAddresses = fetchedAddresses.filter((add) => {
       return add.address[radioValue] === e.target.value;
     });
     setSearchedAddresses(filteredAddresses);
+    if (filteredAddresses.length === 0 && searchWord.length !== 0) {
+      alert('Nothing found');
+    }
   };
 
   // Sort Buttons Handler, works either on all addresses or on searched addresses
@@ -212,8 +217,8 @@ const Addresses = () => {
           <Spinner />
         ) : (
           <>
-            {searchedAddresses.length === 0 && searchWord.length === 0
-              ? fetchedAddresses.map((item) => (
+            {searchedAddresses.length !== 0
+              ? searchedAddresses.map((item) => (
                   <AddressCard
                     key={item.id}
                     address={item.address}
@@ -221,7 +226,7 @@ const Addresses = () => {
                     onDeleteClick={(e) => deleteHandler(e, item.id)}
                   />
                 ))
-              : searchedAddresses.map((item) => (
+              : fetchedAddresses.map((item) => (
                   <AddressCard
                     key={item.id}
                     address={item.address}
