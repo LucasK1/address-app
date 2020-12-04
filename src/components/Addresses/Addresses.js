@@ -108,6 +108,7 @@ const Addresses = () => {
       return add.address[radioValue] === e.target.value;
     });
     setSearchedAddresses(filteredAddresses);
+
     if (filteredAddresses.length === 0 && searchWord.length !== 0) {
       alert('Nothing found');
     }
@@ -141,7 +142,6 @@ const Addresses = () => {
             ? 1
             : -1;
         });
-        console.log(sorted);
         break;
       case 'byOldest':
         sorted.sort((a, b) => {
@@ -149,7 +149,6 @@ const Addresses = () => {
             ? 1
             : -1;
         });
-        console.log(sorted);
         break;
       default:
         return sorted;

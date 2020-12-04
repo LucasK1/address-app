@@ -4,7 +4,7 @@ import NavItems from './NavItems/NavItems';
 
 import * as classes from './NavBar.module.css';
 
-const NavBar = (props) => {
+const NavBar = () => {
   return (
     <div className={classes.NavBar}>
       <img src={require('../../assets/logo.png')} alt="Address Book logo" />

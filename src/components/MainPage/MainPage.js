@@ -9,7 +9,7 @@ import { initialState } from 'context/AddressesContext';
 
 import * as classes from './MainPage.module.css';
 
-const MainPage = (props) => {
+const MainPage = () => {
   const [showModal, setShowModal] = useState(false);
 
   const showModalHandler = () => {

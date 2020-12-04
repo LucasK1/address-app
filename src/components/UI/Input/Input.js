@@ -2,18 +2,18 @@ import React from 'react';
 
 import * as classes from './Input.module.css';
 
-const Input = (props) => {
+const Input = ({ elementType, elementConfig, value, changed, submitted }) => {
   let inputElement = null;
   let inputClasses = [classes.Input];
 
-  switch (props.elementType) {
+  switch (elementType) {
     case 'input':
       inputElement = (
         <input
           className={inputClasses.join(' ')}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
       break;
@@ -21,21 +21,21 @@ const Input = (props) => {
       inputElement = (
         <textarea
           className={inputClasses.join(' ')}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}></textarea>
+          {...elementConfig}
+          value={value}
+          onChange={changed}></textarea>
       );
       break;
     default:
       inputElement = (
         <input
           className={inputClasses.join(' ')}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              props.submitted(e);
+              submitted(e);
             }
           }}
         />
