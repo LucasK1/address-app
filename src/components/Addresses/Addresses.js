@@ -91,14 +91,24 @@ const Addresses = () => {
 
   // Search Submit Handler
   const submitSearch = (e) => {
+    const radioBtns = document.getElementsByClassName('radioBtn');
+    let radioValue;
+    if (radioBtns) {
+      for (const btn of radioBtns) {
+        if (btn.checked) {
+          radioValue = btn.value;
+        }
+      }
+    }
+
     let filteredAddresses = fetchedAddresses;
     filteredAddresses = filteredAddresses.filter((add) => {
-      return add.address.name === e.target.value;
+      return add.address[radioValue] === e.target.value;
     });
     setSearchedAddresses(filteredAddresses);
   };
 
-  // Sort Buttons Handler
+  // Sort Buttons Handler, works either on all addresses or on searched addresses
   const sortHandler = (e, keyword) => {
     e.preventDefault();
     setLoading(true);
@@ -166,6 +176,27 @@ const Addresses = () => {
             value={searchWord}
             submitted={submitSearch}
           />
+          <label htmlFor="name">Name</label>
+          <input
+            type="radio"
+            name="searchType"
+            value="name"
+            className="radioBtn"
+          />
+          <label htmlFor="email">Email</label>
+          <input
+            type="radio"
+            name="searchType"
+            value="email"
+            className="radioBtn"
+          />
+          <label htmlFor="address">Address</label>
+          <input
+            type="radio"
+            name="searchType"
+            value="address"
+            className="radioBtn"
+          />
         </div>
       </div>
       <div className={classes.Addresses}>
@@ -181,8 +212,8 @@ const Addresses = () => {
           <Spinner />
         ) : (
           <>
-            {searchedAddresses.length !== 0
-              ? searchedAddresses.map((item) => (
+            {searchedAddresses.length === 0 && searchWord.length === 0
+              ? fetchedAddresses.map((item) => (
                   <AddressCard
                     key={item.id}
                     address={item.address}
@@ -190,7 +221,7 @@ const Addresses = () => {
                     onDeleteClick={(e) => deleteHandler(e, item.id)}
                   />
                 ))
-              : fetchedAddresses.map((item) => (
+              : searchedAddresses.map((item) => (
                   <AddressCard
                     key={item.id}
                     address={item.address}
