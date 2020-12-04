@@ -22,6 +22,21 @@
   justify-content: space-evenly;
 }
 
+.SearchArea {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SearchArea__radio {
+  width: 250px;
+  display: flex;
+  color: #ccc;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .Addresses input,
 .Addresses textarea {
   background-color: #aabfc5;

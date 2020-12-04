@@ -173,34 +173,36 @@ const Addresses = () => {
             Sort Oldest-Newest
           </Button>
         </div>
-        <div>
+        <div className={classes.SearchArea}>
           <Input
             elementConfig={{ type: 'text', placeholder: 'Search' }}
             changed={onChangeSearchHandler}
             value={searchWord}
             submitted={submitSearch}
           />
-          <label htmlFor="name">Name</label>
-          <input
-            type="radio"
-            name="searchType"
-            value="name"
-            className="radioBtn"
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="radio"
-            name="searchType"
-            value="email"
-            className="radioBtn"
-          />
-          <label htmlFor="address">Address</label>
-          <input
-            type="radio"
-            name="searchType"
-            value="address"
-            className="radioBtn"
-          />
+          <div className={classes.SearchArea__radio}>
+            <label htmlFor="name">Name</label>
+            <input
+              type="radio"
+              name="searchType"
+              value="name"
+              className="radioBtn"
+            />
+            <label htmlFor="email">Email</label>
+            <input
+              type="radio"
+              name="searchType"
+              value="email"
+              className="radioBtn"
+            />
+            <label htmlFor="address">Address</label>
+            <input
+              type="radio"
+              name="searchType"
+              value="address"
+              className="radioBtn"
+            />
+          </div>
         </div>
       </div>
       <div className={classes.Addresses}>
