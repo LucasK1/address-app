@@ -43,16 +43,16 @@ const AddressCard = ({
           </address>
         </li>
         <li>
-          <span>Info:</span>
-          <p>{additionalInfo}</p>
-        </li>
-        <li>
           <span>Added On:</span>
           <p>
             {addedOn && typeof addedOn === 'string'
               ? moment(addedOn).format('DD/MM/YYYY hh:mm')
               : 'Unknown'}
           </p>
+        </li>
+        <li>
+          <span>Info:</span>
+          <p>{additionalInfo}</p>
         </li>
       </ul>
       <div className={classes.AddressCard_btns}>

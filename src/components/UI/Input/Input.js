@@ -42,7 +42,7 @@ const Input = ({ elementType, elementConfig, value, changed, submitted }) => {
       );
   }
 
-  return <>{inputElement}</>;
+  return inputElement;
 };
 
 export default Input;

@@ -1,17 +1,21 @@
 .AddressCard {
+  font-family: serif;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
   width: 290px;
   height: 100%;
   margin: 20px;
-  /* border-radius: 15px; */
-  background-color: #24262d;
-  color: #ccc;
+  border-radius: 10px;
+  /* background-color: #24262d; */
+  background-color: #3A405A;
+  /* color: #ccc; */
+  color: #ddd;
   display: flex;
   padding-left: 32px;
-  padding-top: 8px;
+  padding-top: 16px;
   box-sizing: border-box;
   transition: all 200ms linear;
-  display: flex;
-  flex-flow: column;
 }
 
 .AddressCard:hover {
@@ -36,6 +40,7 @@
 .AddressCard_btns {
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
   padding-right: 32px;
-  padding-bottom: 16px;
+  padding-bottom: 22px;
 }

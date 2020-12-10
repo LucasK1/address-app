@@ -12,6 +12,7 @@ import Input from 'components/UI/Input/Input';
 
 import * as classes from './Addresses.module.css';
 import { AddressesContext } from '../../context/AddressesContext';
+import NavBar from 'components/Navigation/NavBar';
 
 const Addresses = () => {
   const [loading, setLoading] = useState(false);
@@ -161,15 +162,16 @@ const Addresses = () => {
 
   return (
     <>
+      <NavBar />
       <div className={classes.SearchSort}>
         <div>
-          <Button submitted={(e) => sortHandler(e, 'byAlpha')}>
+          <Button submitted={(e) => sortHandler(e, 'byAlpha')} medium>
             Sort Alphabetically
           </Button>
-          <Button submitted={(e) => sortHandler(e, 'byNewest')}>
+          <Button submitted={(e) => sortHandler(e, 'byNewest')} medium>
             Sort Newest-Oldest
           </Button>
-          <Button submitted={(e) => sortHandler(e, 'byOldest')}>
+          <Button submitted={(e) => sortHandler(e, 'byOldest')} medium>
             Sort Oldest-Newest
           </Button>
         </div>
@@ -217,7 +219,7 @@ const Addresses = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <>
+          <div className={classes.Addresses__container}>
             {searchedAddresses.length !== 0
               ? searchedAddresses.map((item) => (
                   <AddressCard
@@ -235,7 +237,7 @@ const Addresses = () => {
                     onDeleteClick={(e) => deleteHandler(e, item.id)}
                   />
                 ))}
-          </>
+          </div>
         )}
       </div>
     </>

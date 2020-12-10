@@ -10,12 +10,13 @@ input[type='number'] {
 }
 
 .Input {
+  height: 30px;
+  width: 435px;
+  margin: 10px 0;
   box-sizing: border-box;
   font-family: inherit;
   font-size: inherit;
-  margin: 10px 0;
-  height: 30px;
-  width: 435px;
+  padding-left: 4px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }

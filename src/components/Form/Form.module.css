@@ -1,4 +1,5 @@
 form {
+  font-family: serif;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

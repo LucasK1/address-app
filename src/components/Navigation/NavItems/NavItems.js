@@ -6,7 +6,6 @@ const NavItems = () => {
   return (
     <nav>
       <ul className={classes.NavItems}>
-        <NavItem pathName="/">Home</NavItem>
         <NavItem pathName="/addresses">Addresses</NavItem>
       </ul>
     </nav>

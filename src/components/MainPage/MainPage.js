@@ -8,6 +8,7 @@ import Button from 'components/UI/Button/Button';
 import { initialState } from 'context/AddressesContext';
 
 import * as classes from './MainPage.module.css';
+import NavBar from 'components/Navigation/NavBar';
 
 const MainPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +19,7 @@ const MainPage = () => {
 
   return (
     <div className={classes.MainPage}>
+      <NavBar isMainPage />
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
         <Form
@@ -26,7 +28,15 @@ const MainPage = () => {
           isMainPage
         />
       </Modal>
-      <img src={require('../../assets/logo.png')} alt="Address Book logo" />
+      {/* <img src={require('../../assets/logo.png')} alt="Address Book logo" /> */}
+      <h1
+        style={{
+          fontFamily: 'serif',
+          fontSize: '4.5rem',
+          marginRight: '240px',
+        }}>
+        address book
+      </h1>
       <Button submitted={showModalHandler} big>
         Add a contact
       </Button>

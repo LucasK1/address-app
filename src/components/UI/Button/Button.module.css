@@ -1,17 +1,26 @@
 .Button {
-  background-color: #61dafb;
+  /* background-color: #998da0; */
+  font-family: serif;
+  background-color: #64B6AC;
   text-align: center;
 }
 
 .Button:hover {
   cursor: pointer;
-  background-color: white;
+  background-color: #fff;
 }
 
 .Big {
   font-size: 1.25rem;
   width: 200px;
   height: 80px;
+  transition: 0.1s linear;
+}
+
+.Medium {
+  font-size: 1rem;
+  width: 125px;
+  height: 55px;
   transition: 0.1s linear;
 }
 
@@ -23,7 +32,8 @@
 }
 
 .Red {
-  background-color: #f80;
+  /* background-color: #f80; */
+  background-color: #EA9010;
 }
 
 .Red:hover {

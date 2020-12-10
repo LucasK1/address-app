@@ -1,10 +1,16 @@
 import React from 'react';
 import * as classes from './Button.module.css';
 
-const Button = ({ small, red, submitted, children }) => {
+const Button = ({ small, medium, big, red, submitted, children }) => {
   let classArray = [classes.Button];
 
-  small ? classArray.push(classes.Small) : classArray.push(classes.Big);
+  if (small) {
+    classArray.push(classes.Small);
+  } else if (medium) {
+    classArray.push(classes.Medium);
+  } else if (big) {
+    classArray.push(classes.Big);
+  }
   if (red) {
     classArray.push(classes.Red);
   }

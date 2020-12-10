@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import AddressesContextProvider from 'context/AddressesContext';
 
@@ -12,13 +12,13 @@ import './App.css';
 const App = () => {
   return (
     <AddressesContextProvider>
-      <BrowserRouter>
+      <Router>
         <div className="App">
-          <NavBar />
+          {/* <NavBar /> */}
           <Route path="/" exact component={MainPage} />
           <Route path="/addresses" exact component={Addresses} />
         </div>
-      </BrowserRouter>
+      </Router>
     </AddressesContextProvider>
   );
 };

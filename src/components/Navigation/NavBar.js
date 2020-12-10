@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import NavItems from './NavItems/NavItems';
 
 import * as classes from './NavBar.module.css';
+import { useState } from 'react';
 
-const NavBar = () => {
+const NavBar = ({ isMainPage }) => {
+  let classArray = [classes.NavBar];
+
+  if (!isMainPage) {
+    classArray.push(classes.NavBar__alt);
+  } else {
+    classArray.push(classes.NavBar__basic);
+  }
+
   return (
-    <div className={classes.NavBar}>
-      <img src={require('../../assets/logo.png')} alt="Address Book logo" />
+    <div className={classArray.join(' ')}>
+      <NavLink to="/">
+        <img src={require('../../assets/logo1.png')} alt="Address Book logo" />
+      </NavLink>
       <NavItems />
     </div>
   );
