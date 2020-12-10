@@ -1,5 +1,6 @@
 .Button {
   /* background-color: #998da0; */
+  box-sizing: border-box;
   font-family: serif;
   background-color: #64B6AC;
   text-align: center;
@@ -11,16 +12,17 @@
 }
 
 .Big {
-  font-size: 1.25rem;
-  width: 200px;
-  height: 80px;
+  font-size: 1.5rem;
+  width: 250px;
+  height: 100px;
   transition: 0.1s linear;
 }
 
 .Medium {
   font-size: 1rem;
-  width: 125px;
-  height: 55px;
+  width: 170px;
+  height: 70px;
+  margin: 0 10px;
   transition: 0.1s linear;
 }
 

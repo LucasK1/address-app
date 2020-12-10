@@ -19,7 +19,6 @@ const MainPage = () => {
 
   return (
     <div className={classes.MainPage}>
-      <NavBar isMainPage />
       <Backdrop show={showModal} clicked={showModalHandler} />
       <Modal show={showModal}>
         <Form
@@ -28,18 +27,13 @@ const MainPage = () => {
           isMainPage
         />
       </Modal>
-      {/* <img src={require('../../assets/logo.png')} alt="Address Book logo" /> */}
-      <h1
-        style={{
-          fontFamily: 'serif',
-          fontSize: '4.5rem',
-          marginRight: '240px',
-        }}>
-        address book
-      </h1>
-      <Button submitted={showModalHandler} big>
-        Add a contact
-      </Button>
+      <div className={classes.Container}>
+        <NavBar isMainPage />
+        <h1 className={classes.Title}>address book</h1>
+        <Button submitted={showModalHandler} big>
+          Add a contact
+        </Button>
+      </div>
     </div>
   );
 };

@@ -41,7 +41,7 @@
 .SearchArea__radio {
   width: 250px;
   display: flex;
-  color: #ccc;
+  color: #eee;
   align-items: center;
   justify-content: space-around;
 }
