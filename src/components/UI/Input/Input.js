@@ -2,9 +2,12 @@ import React from 'react';
 
 import * as classes from './Input.module.css';
 
-const Input = ({ elementType, elementConfig, value, changed, submitted }) => {
+const Input = ({ elementType, elementConfig, value, changed, submitted, isSearchBar }) => {
   let inputElement = null;
   let inputClasses = [classes.Input];
+  if (isSearchBar) {
+    inputClasses.push(classes.searchBar)
+  }
 
   switch (elementType) {
     case 'input':

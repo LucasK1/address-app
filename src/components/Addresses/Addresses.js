@@ -90,31 +90,6 @@ const Addresses = () => {
     setSearchWord(e.target.value);
   };
 
-  // Search Submit Handler
-  const submitSearch = (e) => {
-    const radioBtns = document.getElementsByClassName('radioBtn');
-    let radioValue;
-    if (radioBtns) {
-      for (const btn of radioBtns) {
-        if (btn.checked) {
-          radioValue = btn.value;
-        }
-      }
-      if (!radioValue) {
-        alert('Check a radio button to search!');
-      }
-    }
-
-    const filteredAddresses = fetchedAddresses.filter((add) => {
-      return add.address[radioValue] === e.target.value;
-    });
-    setSearchedAddresses(filteredAddresses);
-
-    if (filteredAddresses.length === 0 && searchWord.length !== 0) {
-      alert('Nothing found');
-    }
-  };
-
   // Sort Buttons Handler, works either on all addresses or on searched addresses
   const sortHandler = (e, keyword) => {
     e.preventDefault();
@@ -160,6 +135,24 @@ const Addresses = () => {
     setLoading(false);
   };
 
+  // Search bar handler
+  const filteredAddresses =
+    fetchedAddresses.length !== 0
+      ? fetchedAddresses.filter((address) => {
+          for (let key in address.address) {
+            if (
+              address.address[key]
+                .toLowerCase()
+                .includes(searchWord.toLowerCase())
+            ) {
+              return true;
+            }
+          }
+
+          return false;
+        })
+      : [];
+
   return (
     <>
       <NavBar />
@@ -180,31 +173,8 @@ const Addresses = () => {
             elementConfig={{ type: 'text', placeholder: 'Search' }}
             changed={onChangeSearchHandler}
             value={searchWord}
-            submitted={submitSearch}
+            isSearchBar
           />
-          <div className={classes.SearchArea__radio}>
-            <label htmlFor="name">Name</label>
-            <input
-              type="radio"
-              name="searchType"
-              value="name"
-              className="radioBtn"
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="radio"
-              name="searchType"
-              value="email"
-              className="radioBtn"
-            />
-            <label htmlFor="address">Address</label>
-            <input
-              type="radio"
-              name="searchType"
-              value="address"
-              className="radioBtn"
-            />
-          </div>
         </div>
       </div>
       <div className={classes.Addresses}>
@@ -220,8 +190,8 @@ const Addresses = () => {
           <Spinner />
         ) : (
           <div className={classes.Addresses__container}>
-            {searchedAddresses.length !== 0
-              ? searchedAddresses.map((item) => (
+            {filteredAddresses.length !== 0
+              ? filteredAddresses.map((item) => (
                   <AddressCard
                     key={item.id}
                     address={item.address}
