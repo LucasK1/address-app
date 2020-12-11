@@ -12,7 +12,6 @@ import Input from 'components/UI/Input/Input';
 import NavBar from 'components/Navigation/NavBar';
 
 import * as classes from './Addresses.module.css';
-import withErrorHandler from 'HOC/withErrorHandler';
 
 const Addresses = () => {
   const [loading, setLoading] = useState(false);
@@ -212,4 +211,4 @@ const Addresses = () => {
     </>
   );
 };
-export default withErrorHandler(Addresses, axios);
+export default Addresses;

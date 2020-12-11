@@ -33,3 +33,16 @@ img {
   width: 320px;
   height: 320px;
 }
+
+@media only screen and (max-width: 768px) {
+  .MainPage {
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #998da0 50%, #998da0 100%);
+  }
+  .Container {
+    max-width: 768px;
+  }
+  .Title {
+    font-size: 3rem;
+    /* margin-right: 400px; */
+  }
+}
