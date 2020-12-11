@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Modal from 'components/UI/Modal/Modal';
 import Form from 'components/Form/Form';
-import Backdrop from 'components/UI/Backdrop/Backdrop';
 import Button from 'components/UI/Button/Button';
 
 import { initialState } from 'context/AddressesContext';
@@ -19,8 +18,7 @@ const MainPage = () => {
 
   return (
     <div className={classes.MainPage}>
-      <Backdrop show={showModal} clicked={showModalHandler} />
-      <Modal show={showModal}>
+      <Modal show={showModal} modalClosed={showModalHandler}>
         <Form
           submitted={showModalHandler}
           address={{ address: initialState.singleAddress }}

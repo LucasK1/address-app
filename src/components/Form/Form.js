@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
+import dayjs from 'dayjs';
 import axios from 'axios';
 
 import Input from 'components/UI/Input/Input';
@@ -156,7 +157,7 @@ const Form = (props) => {
           console.log(err);
         });
     } else if (props.isAddressPage) {
-      // Edits data in the database
+      // Edits data in the database if the form is accessed by an edit button
       axios
         .patch(
           `https://address-app-8dda8.firebaseio.com/addresses/${singleAddress.id}.json`,
@@ -167,14 +168,21 @@ const Form = (props) => {
           axios
             .get('https://address-app-8dda8.firebaseio.com/addresses.json')
             .then((res) => {
-              let fetchedAddresses = [];
-              for (let singleAddress in res.data) {
-                fetchedAddresses.push({
-                  id: singleAddress,
-                  address: res.data[singleAddress],
+              let addressesFromServer = [];
+              for (let address in res.data) {
+                addressesFromServer.push({
+                  id: address,
+                  address: res.data[address],
                 });
-              }
-              setFetchedAddresses(fetchedAddresses);
+              } 
+              addressesFromServer.sort((a, b) => {
+                return dayjs(a.address.addedOn).isBefore(
+                  dayjs(b.address.addedOn)
+                )
+                  ? 1
+                  : -1;
+              });
+              setFetchedAddresses(addressesFromServer);
               setLoading(false);
             })
             .catch(console.error);

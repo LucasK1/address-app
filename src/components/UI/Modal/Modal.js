@@ -1,16 +1,20 @@
 import React from 'react';
+import Backdrop from '../Backdrop/Backdrop';
 import * as classes from './Modal.module.css';
 
-const Modal = React.memo(({ show, children }) => {
+const Modal = React.memo(({ show, children, modalClosed }) => {
   return (
-    <div
-      className={classes.Modal}
-      style={{
-        transform: show ? 'translateY(0)' : 'translateY(-100vh)',
-        opacity: show ? '1' : '0',
-      }}>
-      {children}
-    </div>
+    <>
+      <Backdrop show={show} clicked={modalClosed} />
+      <div
+        className={classes.Modal}
+        style={{
+          transform: show ? 'translateY(0)' : 'translateY(-100vh)',
+          opacity: show ? '1' : '0',
+        }}>
+        {children}
+      </div>
+    </>
   );
 });
 

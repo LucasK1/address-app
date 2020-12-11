@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { AddressesContext } from '../../context/AddressesContext';
 
 import AddressCard from './AddressCard/AddressCard';
 import Spinner from 'components/UI/Spinner/Spinner';
-import Backdrop from 'components/UI/Backdrop/Backdrop';
 import Modal from 'components/UI/Modal/Modal';
 import Form from 'components/Form/Form';
 import Button from 'components/UI/Button/Button';
 import Input from 'components/UI/Input/Input';
+import NavBar from 'components/Navigation/NavBar';
 
 import * as classes from './Addresses.module.css';
-import { AddressesContext } from '../../context/AddressesContext';
-import NavBar from 'components/Navigation/NavBar';
+import withErrorHandler from 'HOC/withErrorHandler';
 
 const Addresses = () => {
   const [loading, setLoading] = useState(false);
@@ -178,8 +178,7 @@ const Addresses = () => {
         </div>
       </div>
       <div className={classes.Addresses}>
-        <Backdrop show={showModal} clicked={showModalHandler} />
-        <Modal show={showModal}>
+        <Modal show={showModal} modalClosed={showModalHandler}>
           <Form
             address={singleAddress}
             submitted={showModalHandler}
@@ -213,4 +212,4 @@ const Addresses = () => {
     </>
   );
 };
-export default Addresses;
+export default withErrorHandler(Addresses, axios);

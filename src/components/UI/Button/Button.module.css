@@ -2,8 +2,9 @@
   /* background-color: #998da0; */
   box-sizing: border-box;
   font-family: serif;
-  background-color: #64B6AC;
+  background-color: #64b6ac;
   text-align: center;
+  transition: 0.1s linear;
 }
 
 .Button:hover {
@@ -15,7 +16,6 @@
   font-size: 1.5rem;
   width: 250px;
   height: 100px;
-  transition: 0.1s linear;
 }
 
 .Medium {
@@ -23,19 +23,17 @@
   width: 170px;
   height: 70px;
   margin: 0 10px;
-  transition: 0.1s linear;
 }
 
 .Small {
   font-size: 0.9rem;
   width: 80px;
   height: 32px;
-  transition: 0.1s linear;
 }
 
 .Red {
   /* background-color: #f80; */
-  background-color: #EA9010;
+  background-color: #ea9010;
 }
 
 .Red:hover {
