@@ -50,3 +50,12 @@
 .Addresses textarea {
   background-color: #aabfc5;
 }
+
+@media only screen and (max-width: 768px) {
+  .Addresses__container {
+    width: 100%;
+  }
+  .SearchArea {
+    width: 100%;
+  }
+}

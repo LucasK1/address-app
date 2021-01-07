@@ -46,4 +46,16 @@
     width: 150px;
     height: 50px;
   }
+  .Medium {
+    font-size: 0.7rem;
+    width: 100px;
+    height: 40px;
+    margin: 0 10px;
+  }
+  
+  .Small {
+    font-size: 0.9rem;
+    width: 80px;
+    height: 32px;
+  }
 }

@@ -37,6 +37,7 @@
     background-color: #fff;
   }
   .Container {
+    width: 100%;
     max-width: 768px;
   }
   .NavBar img {

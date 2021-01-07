@@ -39,10 +39,12 @@ img {
     background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #998da0 50%, #998da0 100%);
   }
   .Container {
+    width: 100%;
     max-width: 768px;
   }
   .Title {
     font-size: 3rem;
-    /* margin-right: 400px; */
+    margin-right: 0;
+    text-align: center;
   }
 }
