@@ -8,7 +8,7 @@
   margin: 20px;
   border-radius: 10px;
   /* background-color: #24262d; */
-  background-color: #3A405A;
+  background-color: #3a405a;
   /* color: #ccc; */
   color: #ddd;
   display: flex;
@@ -23,18 +23,17 @@
   box-shadow: 2px 2px 15px #000;
 }
 
-.AddressCard p {
-  margin: 8px;
-  width: 90%;
-  word-wrap: break-word;
-}
-
 .AddressCard a {
   text-decoration: underline;
 }
 
-.AddressCard > ul > li > span {
+.AddressCard dt {
   font-weight: 800;
+}
+.AddressCard dd {
+  margin: 8px;
+  word-wrap: break-word;
+  width: 90%;
 }
 
 .AddressCard_btns {

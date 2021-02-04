@@ -20,30 +20,30 @@ const AddressCard = ({
 }) => {
   return (
     <div className={classes.AddressCard}>
-      <ul>
+      {/* <ul>
         <li>
-          <span>Name:</span>
+          <b>Name:</b>
           <p>{name}</p>
         </li>
         <li>
-          <span>Email:</span>
+          <b>Email:</b>
           <p>
             <a href={`mailto:${email}`}>{email}</a>
           </p>
         </li>
         <li>
-          <span>Phone number:</span>
+          <b>Phone number:</b>
           <p>{phone}</p>
         </li>
         <li>
-          <span>Address:</span>
+          <b>Address:</b>
           <address>
             <p>{streetAddress}</p>
             <p>{cityAddress}</p>
           </address>
         </li>
         <li>
-          <span>Added On:</span>
+          <b>Added On:</b>
           <p>
             {addedOn && typeof addedOn === 'string'
               ? moment(addedOn).format('DD/MM/YYYY hh:mm')
@@ -51,10 +51,40 @@ const AddressCard = ({
           </p>
         </li>
         <li>
-          <span>Info:</span>
+          <b>Info:</b>
           <p>{additionalInfo}</p>
         </li>
-      </ul>
+      </ul> */}
+      <dl>
+        <dt>Name:</dt>
+        <dd>{name}</dd>
+
+        <dt>Email:</dt>
+        <dd>
+          <a href={`mailto:${email}`}>{email}</a>
+        </dd>
+
+        <dt>Phone number:</dt>
+        <dd>{phone}</dd>
+
+        <dt>Address:</dt>
+        <dd>
+          <address>
+            <p>{streetAddress}</p>
+            <p>{cityAddress}</p>
+          </address>
+        </dd>
+
+        <dt>Added On:</dt>
+        <dd>
+          {addedOn && typeof addedOn === 'string'
+            ? moment(addedOn).format('DD/MM/YYYY hh:mm')
+            : 'Unknown'}
+        </dd>
+
+        <dt>Info:</dt>
+        <dd>{additionalInfo}</dd>
+      </dl>
       <div className={classes.AddressCard_btns}>
         <Button small submitted={clicked}>
           Edit

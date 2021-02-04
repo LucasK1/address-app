@@ -173,10 +173,11 @@ const Addresses = () => {
             changed={onChangeSearchHandler}
             value={searchWord}
             isSearchBar
+            submitted={() => {}}
           />
         </div>
       </div>
-      <div className={classes.Addresses}>
+      <main className={classes.Addresses}>
         <Modal show={showModal} modalClosed={showModalHandler}>
           <Form
             address={singleAddress}
@@ -187,7 +188,7 @@ const Addresses = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <div className={classes.Addresses__container}>
+          <section className={classes.Addresses__container}>
             {filteredAddresses.length !== 0
               ? filteredAddresses.map((item) => (
                   <AddressCard
@@ -205,9 +206,9 @@ const Addresses = () => {
                     onDeleteClick={(e) => deleteHandler(e, item.id)}
                   />
                 ))}
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </>
   );
 };

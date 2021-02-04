@@ -25,13 +25,13 @@ const MainPage = () => {
           isMainPage
         />
       </Modal>
-      <div className={classes.Container}>
+      <main className={classes.Container}>
         <NavBar isMainPage />
         <h1 className={classes.Title}>address book</h1>
         <Button submitted={showModalHandler} big>
           Add a contact
         </Button>
-      </div>
+      </main>
     </div>
   );
 };

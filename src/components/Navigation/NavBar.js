@@ -15,9 +15,9 @@ const NavBar = ({ isMainPage }) => {
   }
 
   return (
-    <div className={classArray.join(' ')}>
+    <header className={classArray.join(' ')}>
       <div className={classes.Container}>
-        <NavLink to="/">
+        <NavLink to="/" tabIndex="0">
           <img
             src={require('../../assets/logo1.png')}
             alt="Address Book logo"
@@ -25,7 +25,7 @@ const NavBar = ({ isMainPage }) => {
         </NavLink>
         <NavItems />
       </div>
-    </div>
+    </header>
   );
 };
 
