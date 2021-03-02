@@ -1,5 +1,4 @@
 .Button {
-  /* background-color: #998da0; */
   box-sizing: border-box;
   font-family: serif;
   background-color: #64b6ac;
@@ -32,7 +31,6 @@
 }
 
 .Red {
-  /* background-color: #f80; */
   background-color: #ea9010;
 }
 

@@ -23,7 +23,6 @@ input[type='number'] {
 
 .Input:focus {
   border: 2px solid #aaa;
-  /* box-shadow: none; */
 }
 
 .searchBar {
