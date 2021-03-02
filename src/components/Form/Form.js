@@ -174,7 +174,7 @@ const Form = (props) => {
                   id: address,
                   address: res.data[address],
                 });
-              } 
+              }
               addressesFromServer.sort((a, b) => {
                 return dayjs(a.address.addedOn).isBefore(
                   dayjs(b.address.addedOn)
@@ -214,14 +214,14 @@ const Form = (props) => {
     <Spinner />
   ) : (
     <form onSubmit={submitFormHandler}>
-      {addressArray.map((formElement) => {
+      {addressArray.map(({ id, attributes }) => {
         return (
           <Input
-            key={formElement.id}
-            elementType={formElement.attributes.elementType}
-            elementConfig={formElement.attributes.config}
-            value={formElement.attributes.value}
-            changed={(event) => onChangeHandler(event, formElement.id)}
+            key={id}
+            elementType={attributes.elementType}
+            elementConfig={attributes.config}
+            value={attributes.value}
+            changed={(event) => onChangeHandler(event, id)}
           />
         );
       })}
